@@ -49,7 +49,13 @@ This will correctly update the `DESCRIPTION` with the new dependency.
 
 ### Adding a test
 
-To add a test for a given function, add a corresponding test file in the `tests/testthat` directory.
+To add a test for a given function, add a corresponding test file in the `tests/testthat` directory.  To run all the tests in the package, use:
+
+``` r
+devtools::test()
+```
+
+This is also available as the `CMD + SHIFT + t` command in Rstudio.
 
 ### Install local package
 

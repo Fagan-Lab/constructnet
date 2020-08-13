@@ -22,4 +22,5 @@ Suggests:
     testthat
 RoxygenNote: 7.0.2
 Imports: 
-    magrittr
+    magrittr,
+    igraph
