@@ -1,2 +1,13 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^doc$
+^Meta$
+^\.circleci/config\.yml$
+^bench$
+^cran-comments\.md$
+^revdep$
+^Makefile$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$

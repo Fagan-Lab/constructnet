@@ -2,6 +2,7 @@
 # constructnet
 
 <!-- badges: start -->
+[![CircleCI build status](https://circleci.com/gh/travisbyrum/constructnet.svg?style=svg)](https://circleci.com/gh/travisbyrum/constructnet)
 <!-- badges: end -->
 
 Network graph reconstruction.
@@ -19,8 +20,6 @@ install.packages("constructnet")
 To document the package use:
 
 ``` r
-library(devtools)
-
-document()
+devtools::document()
 ```
 

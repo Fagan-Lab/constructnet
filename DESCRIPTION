@@ -1,13 +1,25 @@
 Package: constructnet
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: Network Graph Reconstruction
+Version: 0.1.0.9000
+Authors@R: c(
+    person("Travis", "Byrum", email = "tbyrum@terpmail.umd.edu",
+           role = c("aut", "cre")),
+    person("Anshuman", "Swain", email = "answain@terpmail.umd.edu",
+           role = c("aut")),
+    person("Morelle", "Tchuindjo",role = c("aut")),
+    person("William", "Fagan", email = "bfagan@umd.edu",
+           role = c("aut"))
+    )
+Description: Methods for graph network reconstruction.
+    Use with other graph methods.
+License: MIT + file LICENSE
+Depends:
+    R (>= 3.2.0)
 Encoding: UTF-8
 LazyData: true
 Suggests: 
     testthat
+RoxygenNote: 7.0.2
+Imports: 
+    magrittr
