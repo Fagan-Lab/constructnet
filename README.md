@@ -50,3 +50,13 @@ This will correctly update the `DESCRIPTION` with the new dependency.
 ### Adding a test
 
 To add a test for a given function, add a corresponding test file in the `tests/testthat` directory.
+
+### Install local package
+
+To install package locally for development use:
+
+``` r
+devtools::load_all(".")
+```
+
+This is also available as the `CMD + SHIFT + l` command in Rstudio.
