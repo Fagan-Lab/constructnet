@@ -15,7 +15,9 @@ You can install the released version of constructnet from [CRAN](https://CRAN.R-
 install.packages("constructnet")
 ```
 
-## Document
+## Development
+
+### Document
 
 To document the package use:
 
@@ -23,3 +25,28 @@ To document the package use:
 devtools::document()
 ```
 
+This will add any new function `.Rd` files and update existing functions.
+
+### Check
+
+To check that the package installs correctly and all tests are passing, use:
+
+``` r
+devtools::check(document = FALSE)
+```
+
+Alternatively, you can use the check button on the `Build` tab in Rstudio.
+
+### Adding a dependency
+
+To add a package dependency use:
+
+``` r
+usethis::use_package("package")
+```
+
+This will correctly update the `DESCRIPTION` with the new dependency.
+
+### Adding a test
+
+To add a test for a given function, add a corresponding test file in the `tests/testthat` directory.

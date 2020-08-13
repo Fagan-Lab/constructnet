@@ -45,5 +45,6 @@ doc
 Meta
 
 docs/
+.vscode
 
 .DS_Store
