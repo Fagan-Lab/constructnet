@@ -1,6 +1,6 @@
 Package: constructnet
 Type: Package
-Title: Network Graph Reconstruction
+Title: Network reconstruction from time series 
 Version: 0.1.0.9000
 Authors@R: c(
     person("Travis", "Byrum", email = "tbyrum@terpmail.umd.edu",
