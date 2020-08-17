@@ -11,7 +11,7 @@ Authors@R: c(
     person("William", "Fagan", email = "bfagan@umd.edu",
            role = c("aut"))
     )
-Description: Methods for graph network reconstruction.
+Description: Collection of methods for network reconstruction from time series data.
     Use with other graph methods.
 License: MIT + file LICENSE
 Depends:
