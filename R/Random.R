@@ -1,10 +1,10 @@
-#Reconstruct a network from a random matrix, not taking time series into account
+#Reconstruct a network from a random matrix, not taking time series into account.
 
-#@export
+#'@export
 inputThreshold <- threshold(inputArray, min = -Inf, max = Inf)
 construct_random <- function(inputArray, inputThreshold,...) UseMethod("construct_random")
 
-#@export
+#'@export
 construct_random.igraph <- function(inputArray, inputThreshold,...){
 rowsinMatrix <- nrow(inputArray)
 colsinMatrix <- ncol(inputArray)
