@@ -4,3 +4,4 @@
 #' The index variable option as in:
 #' Kenett, D. Y., Huang, X., Vodenska, I., Havlin, S. & Stanley, H. E. Partial correlation
 #' analysis: applications for financial markets. Quantitative Finance 15, 569–578 (2015).
+#' New change
