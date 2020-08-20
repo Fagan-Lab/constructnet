@@ -5,7 +5,7 @@
 [![CircleCI build status](https://circleci.com/gh/travisbyrum/constructnet.svg?style=svg)](https://circleci.com/gh/travisbyrum/constructnet)
 <!-- badges: end -->
 
-Network graph reconstruction.
+constructnet: Network reconstruction from time series.
 
 ## Installation
 
