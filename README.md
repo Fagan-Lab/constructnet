@@ -2,7 +2,7 @@
 # constructnet
 
 <!-- badges: start -->
-[![CircleCI build status](https://circleci.com/gh/travisbyrum/constructnet.svg?style=svg)](https://circleci.com/gh/travisbyrum/constructnet)
+[![CircleCI build status](https://circleci.com/gh/Fagan-Lab/constructnet.svg?style=svg)](https://circleci.com/gh/Fagan-Lab/constructnet)
 <!-- badges: end -->
 
 constructnet: Network reconstruction from time series.

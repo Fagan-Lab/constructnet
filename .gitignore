@@ -48,3 +48,4 @@ docs/
 .vscode
 
 .DS_Store
+.Rproj.user
