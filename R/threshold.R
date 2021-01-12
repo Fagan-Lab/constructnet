@@ -1,6 +1,6 @@
 #threshold.R
 #------------
-#status: Unfinished
+#status: Finished draft and some simple tests
 #Utilities for thresholding matrices based on different criteria
 #author: Stefan McCabe (stefanmccabe at gmail dot com)
 #converted by: Zhaoyi Zhuang
@@ -8,12 +8,12 @@
 
 mask_function <- function(mat, cutoffs) {
   #setting values not within a list of ranges to zero and others to one.
-  
+
   #Parameters
   #----------
-  #mat 
+  #mat
   #   matrix
-  
+
   #cutoffs (list of tuples)
   #    When thresholding, include only edges whose correlations fall
   #    within a given range or set of ranges. The lower value must come
@@ -40,7 +40,7 @@ threshold_in_range <- function(mat, ...){
 
     #Parameters
     #----------
-    #mat 
+    #mat
     #   matrix
 
     #cutoffs (list of tuples)
@@ -51,27 +51,27 @@ threshold_in_range <- function(mat, ...){
     #    ``cutoffs=[(-1, -0.5), (0.5, 1)]``.
     #Returns
     #-------
-    #  thresholded_mat 
+    #  thresholded_mat
     #     the thresholded matrix
 
-  
-  kwargs <- list(...) 
+
+  kwargs <- list(...)
   if ("cutoffs" %in% names(kwargs)) {
     cutoffs <- kwargs[["cutoffs"]]
   } else {
     warning("Setting 'cutoffs' argument is strongly encouraged. Using cutoff range of (-1, 1).")
     cutoffs <- list(c(-1, 1))
   }
-  
+
   mask = mask_function(mat, cutoffs)
   thresholded_mat = mat * mask
-  
+
   if (!is.null(kwargs[["binary"]])) {
     if (kwargs[["binary"]] || FALSE) {
       thresholded_mat = mask
     }
   }
-  
+
   if (!is.null(kwargs[["remove_self_loops"]])) {
     if (kwargs[["remove_self_loops"]] && TRUE) {
       diag(thresholded_mat) = 0
@@ -100,15 +100,15 @@ threshold_on_quantile <- function(mat, ...) {
     #-------
     #thresholded_mat
     #    the thresholded matrix
-  
-  kwargs <- list(...) 
+
+  kwargs <- list(...)
   if ("quantile" %in% names(kwargs)) {
     quantile <- kwargs[["quantile"]]
   } else {
     warning("Setting 'quantile' argument is strongly recommended. Using target quantile of 0.9 for thresholding.")
     quantile <- 0.9
   }
-  
+
   if (!is.null(kwargs[["remove_self_loops"]])) {
     if (kwargs[["remove_self_loops"]] && TRUE) {
       diag(mat) = 0
@@ -122,13 +122,13 @@ threshold_on_quantile <- function(mat, ...) {
   } else {
     thresholded_mat <- mat
   }
-  
+
   if (!is.null(kwargs[["binary"]])) {
     if (kwargs[["binary"]] || FALSE) {
       thresholded_mat = abs(sign(thresholded_mat))
     }
   }
-  
+
   result <- thresholded_mat
 }
 
@@ -149,17 +149,17 @@ threshold_on_degree <- function(mat, ...) {
     #-------
     #thresholded_mat
     #    the thresholded matrix
-  kwargs <- list(...) 
+  kwargs <- list(...)
   if ("avg_k" %in% names(kwargs)) {
     avg_k <- kwargs[["avg_k"]]
   } else {
     warning("Setting 'avg_k' argument is strongly encouraged. Using average degree of 1 for thresholding.")
     avg_k = 1
   }
-  
+
   n <- ncol(mat)
   A <- matrix(1, n, n)
-  
+
   if (!is.null(kwargs[["remove_self_loops"]])) {
     if (kwargs[["remove_self_loops"]] && TRUE) {
       diag(A) = 0
@@ -169,7 +169,7 @@ threshold_on_degree <- function(mat, ...) {
     diag(A) = 0
     diag(mat) = 0
   }
-  
+
   if (mean(rowSums(A)) <= avg_k) {
     thresholded_mat = mat
   } else {
@@ -181,13 +181,13 @@ threshold_on_degree <- function(mat, ...) {
     }
     thresholded_mat = mat * (mat > m)
   }
-  
+
   if (!is.null(kwargs[["binary"]])) {
     if (kwargs[["binary"]] || FALSE) {
       thresholded_mat = abs(sign(thresholded_mat))
     }
   }
-  
+
   result <- thresholded_mat
 }
 
@@ -198,7 +198,7 @@ threshold <- function(mat, rule, ...) {
     #Parameters
     #----------
 
-    #mat 
+    #mat
     #   matrix
 
     #rule (str)
@@ -212,7 +212,7 @@ threshold <- function(mat, rule, ...) {
     #thresholded_mat
     #    the thresholded matrix
 
-  kwargs <- list(...) 
+  kwargs <- list(...)
   result = tryCatch({
     if (rule == 'degree'){
       threshold_on_degree(mat, ...)
@@ -229,7 +229,7 @@ threshold <- function(mat, rule, ...) {
   }, error = function(e) {
     stop("missing threshold parameter")
   })
-  
+
 }
 
 
@@ -237,23 +237,23 @@ threshold <- function(mat, rule, ...) {
 
 
 # test
-m = matrix(c(1, 4, 3, 1, 5, 7, 3, 4, 7), nrow=3, ncol=3, byrow = TRUE)   
-cutoffs <- list(c(-1, 1), c(1, 3))
-print(threshold(m, "range", cutoffs = cutoffs, binary = T))
-print(threshold(m, "range", cutoffs = cutoffs, binary = T, remove_self_loops = F))
-print(threshold(m, "range", cutoffs = cutoffs, binary = F, remove_self_loops = F))
-print(threshold(m, "range", cutoffs = cutoffs, binary = F, remove_self_loops = T))
+# m = matrix(c(1, 4, 3, 1, 5, 7, 3, 4, 7), nrow=3, ncol=3, byrow = TRUE)
+# cutoffs <- list(c(-1, 1), c(1, 3))
+# print(threshold(m, "range", cutoffs = cutoffs, binary = T))
+# print(threshold(m, "range", cutoffs = cutoffs, binary = T, remove_self_loops = F))
+# print(threshold(m, "range", cutoffs = cutoffs, binary = F, remove_self_loops = F))
+# print(threshold(m, "range", cutoffs = cutoffs, binary = F, remove_self_loops = T))
+#
+# print(threshold(m, 'degree', binary = T))
+# print(threshold(m, 'degree', binary = T, remove_self_loops = F))
+# print(threshold(m, 'degree', binary = F, remove_self_loops = F))
+# print(threshold(m, 'degree', binary = F, remove_self_loops = T))
+#
+# print(threshold(m, 'quantile', binary = T))
+# print(threshold(m, 'quantile', binary = T, remove_self_loops = F))
+# print(threshold(m, 'quantile', binary = F, remove_self_loops = F))
+# print(threshold(m, 'quantile', binary = F, remove_self_loops = T))
+#
+# print(threshold(m, 'q', binary = T))
 
-print(threshold(m, 'degree', binary = T))
-print(threshold(m, 'degree', binary = T, remove_self_loops = F))
-print(threshold(m, 'degree', binary = F, remove_self_loops = F))
-print(threshold(m, 'degree', binary = F, remove_self_loops = T))
-
-print(threshold(m, 'quantile', binary = T))
-print(threshold(m, 'quantile', binary = T, remove_self_loops = F))
-print(threshold(m, 'quantile', binary = F, remove_self_loops = F))
-print(threshold(m, 'quantile', binary = F, remove_self_loops = T))
-
-print(threshold(m, 'q', binary = T))
-
-print(threshold(m, 'custom'))
+# print(threshold(m, 'custom'))

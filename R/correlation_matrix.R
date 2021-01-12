@@ -1,13 +1,14 @@
 #correlation_matrix.R
 #------------
-#status: Unfinished
+#status: Finished draft and some simple tests
 #Reconstruction of graphs using the correlation matrix.
 #author: Stefan McCabe
 #converted by: Zhaoyi Zhuang
 
-source(threshold.R)
+source(here::here('constructnet', 'R', 'threshold.R'))
+source(here::here('constructnet', 'R', 'graph.R'))
 
-fit <- function(TS, num_eigs=Null, threshold_type='range', ...) {
+fit <- function(TS, num_eigs=NULL, threshold_type='range', ...) {
 
         #If ``num_eigs`` is `Null`, perform the reconstruction using the
         #unregularized correlation matrix. Otherwise, construct a regularized
@@ -31,10 +32,9 @@ fit <- function(TS, num_eigs=Null, threshold_type='range', ...) {
         #-------
         #  G
         #   a reconstructed graph.
+        #  list()
+        #   structure
 
-
-  # return list
-  results <- list()
 
   # get the correlation matrix
   co = cor(t(TS), method="pearson")
@@ -70,17 +70,18 @@ fit <- function(TS, num_eigs=Null, threshold_type='range', ...) {
       # threshold the correlation matrix
       thresholded_matrix = A,
       # construct the network
-      # waiting for graph.R
-      graph = A
-      #graph = create_graph(A)
+      graph = create_graph(A)
     ),
     class = "correlationMatrix"
   )
 
+  G <- create_graph(A)
+  # return
+  results <- G
 }
 
 
 # test
 mydata = matrix(c(2, 4, 3, 1, 5, 7, 3, 4, 7), nrow=3, ncol=3, byrow = TRUE)
-fit(mydata, 2)
-
+output <- fit(mydata)
+plot(net)
