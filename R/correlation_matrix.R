@@ -1,7 +1,11 @@
 #correlation_matrix.R
-#status Unfinished
+#------------
+#status: Unfinished
 #Reconstruction of graphs using the correlation matrix.
-#author Zhaoyi Zhuang
+#author: Stefan McCabe
+#converted by: Zhaoyi Zhuang
+
+source(threshold.R)
 
 fit <- function(TS, num_eigs=Null, threshold_type='range', ...) {
 
@@ -23,6 +27,11 @@ fit <- function(TS, num_eigs=Null, threshold_type='range', ...) {
         #threshold_type (str)
         #    Which thresholding function to use on the matrix of
         #    weights.
+        #Returns
+        #-------
+        #  G
+        #   a reconstructed graph.
+
 
   # return list
   results <- list()
@@ -52,10 +61,7 @@ fit <- function(TS, num_eigs=Null, threshold_type='range', ...) {
     mat <- co
   }
 
-  #waiting for threshold.R
-  #A = threshold(mat, threshold_type, ...)
-  A <- matrix(c(2, 4, 3, 1, 5, 7), nrow=2, ncol=3, byrow = TRUE)
-
+  A = threshold(mat, threshold_type, ...)
 
   structure(
     list(
@@ -75,6 +81,6 @@ fit <- function(TS, num_eigs=Null, threshold_type='range', ...) {
 
 
 # test
-#mydata = matrix(c(2, 4, 3, 1, 5, 7, 3, 4, 7), nrow=3, ncol=3, byrow = TRUE)
-#fit(mydata, 2)
+mydata = matrix(c(2, 4, 3, 1, 5, 7, 3, 4, 7), nrow=3, ncol=3, byrow = TRUE)
+fit(mydata, 2)
 
