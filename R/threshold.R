@@ -79,6 +79,7 @@ threshold_in_range <- function(mat, ...){
   } else {
     diag(thresholded_mat) = 0
   }
+
   result <- thresholded_mat
 }
 

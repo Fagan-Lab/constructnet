@@ -12,13 +12,13 @@ create_graph <- function(A, mode = NULL, remove_self_loops=T) {
 
     #Parameters
     #----------
-    #A 
+    #A
     #  MATRIX
 
     #mode
-    #   Character scalar, specifies how igraph should interpret the supplied matrix. 
+    #   Character scalar, specifies how igraph should interpret the supplied matrix.
 
-    #remove_self_loops 
+    #remove_self_loops
     #    If True, remove the diagonal of the matrix before creating the
     #    graph object.
 
@@ -32,7 +32,7 @@ create_graph <- function(A, mode = NULL, remove_self_loops=T) {
   if (is.null(mode)) {
     if(suppressWarnings(all(A == t(A), tolerance = (1e-05 * abs(t(A)) + 1e-08)))){
       G <- graph_from_adjacency_matrix(A, mode = "undirected")
-      G <- simplify(G, remove.multiple = T, remove.loops = T) 
+      G <- simplify(G, remove.multiple = T, remove.loops = T)
     } else {
       G <- graph_from_adjacency_matrix(A, mode = "directed")
       G <- simplify(G, remove.multiple = T, remove.loops = T)
@@ -41,7 +41,7 @@ create_graph <- function(A, mode = NULL, remove_self_loops=T) {
     G <- graph_from_adjacency_matrix(A, mode = mode)
     G <- simplify(G, remove.multiple = T, remove.loops = T)
   }
-  
+
   results <- G
 }
 
