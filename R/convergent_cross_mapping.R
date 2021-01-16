@@ -9,6 +9,7 @@
 
 library(igraph)
 library(FNN)
+library(gtools)
 source(here::here('constructnet', 'R', 'threshold.R'))
 source(here::here('constructnet', 'R', 'graph.R'))
 
@@ -247,68 +248,5 @@ time_series_estimates <- function(data_y, nei_x, wei_x){
 
 # test
 TS = matrix(c(-1, -1, -2, -1, 4, 7, 8, -3, -2, 1, 1, 4, 0, 2, 2, 1, 3, 2, -3, -1, 9), nrow=3, ncol=7, byrow = TRUE)
-# data <- t(TS)
-# L = nrow(data)
-# N = ncol(data)
-# print(data)
-# if(L < 3 + (N - 1) * (1 +  tau)) {
-#   stop('Need more data. L must be not less than 3+(N-1)*(1+tau).')
-# }
-# # Create shadow data cloud for each variable
-# shadows <- matrix(list(matrix(list(), nrow = 1, ncol = L)), nrow = 1, ncol = N)
-# for (j in 1 : N) {
-#   shadows[[1, j]] = shadow_data_cloud(data[, j], N, tau)
-# }
-# print("s")
-# print(shadows[1])
-# print(shadows[2])
-# print(shadows[3])
-# neighbors <- matrix(list(matrix(list(), nrow = 1, ncol = L)), nrow = 1, ncol = N)
-# for(i in 1 : N) {
-#   neighbors[[1, i]] = nearest_neighbors(shadows[[i]], L)[[1]]
-# }
-# print("nei")
-# neighbors[1]
-# neighbors[2]
-# neighbors[3]
-# distances <- matrix(list(matrix(list(), nrow = 1, ncol = L)), nrow = 1, ncol = N)
-# for(i in 1 : N) {
-#   distances[[1, i]] = nearest_neighbors(shadows[[i]], L)[[2]]
-# }
-# print("dist")
-# distances[1]
-# distances[2]
-# distances[3]
-# nei_weights <- matrix(list(matrix(list(), nrow = 1, ncol = L)), nrow = 1, ncol = N)
-# for (i in 1 : N) {
-#   nei_weights[[1, i]] <- neighbor_weights(distances[[i]])
-# }
-# print(nei_weights[1])
-# print(nei_weights[2])
-# print(nei_weights[3])
-#
-# correlation = matrix(1, N, N)
-# pvalue = matrix(0, N, N)
-# p <- permutations(N,2, 1:N)
-# for(x in 1:nrow(p)){
-#   i <- p[x, ][1]
-#   j <- p[x, ][2]
-#   estimates <- time_series_estimates(data[, j], neighbors[[i]], nei_weights[[i]])
-#   M <- length(estimates)
-#   correlation[i, j] = cor.test(estimates, data[(L-M+1):L, j], method = "pearson")[[4]][[1]]
-#   pvalue[i, j] = cor.test(estimates, data[(L-M+1):L, j], method = "pearson")[[3]]
-# }
-#
-# print(correlation)
-# print(pvalue)
-#
-# weights = pvalue
-# weights[weights > 0] <- -log10(weights[weights > 0])
-# weights[weights == 0] <- Inf
-# A = threshold(weights, 'degree')
-# A
-# G = create_graph(A)
-# plot(G)
-#
 s <- convergent_cross_mapping_fit(TS)
 plot(s)
