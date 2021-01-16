@@ -82,6 +82,6 @@ correlation_matrix_fit <- function(TS, num_eigs=NULL, threshold_type='range', ..
 
 
 # test
-mydata = matrix(c(2, 4, 3, 1, 5, 7, 3, 4, 7), nrow=3, ncol=3, byrow = TRUE)
-output <- correlation_matrix_fit(mydata)
-plot(net)
+# mydata = matrix(c(2, 4, 3, 1, 5, 7, 3, 4, 7), nrow=3, ncol=3, byrow = TRUE)
+# output <- correlation_matrix_fit(mydata)
+# plot(net)
