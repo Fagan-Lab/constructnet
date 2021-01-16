@@ -1,4 +1,4 @@
-#graph.py
+#graph.R
 #--------
 #status: Finished draft and some simple tests
 #Utilities for creating and interacting with graph objects.

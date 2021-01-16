@@ -8,7 +8,7 @@
 source(here::here('constructnet', 'R', 'threshold.R'))
 source(here::here('constructnet', 'R', 'graph.R'))
 
-fit <- function(TS, num_eigs=NULL, threshold_type='range', ...) {
+correlation_matrix_fit <- function(TS, num_eigs=NULL, threshold_type='range', ...) {
 
         #If ``num_eigs`` is `Null`, perform the reconstruction using the
         #unregularized correlation matrix. Otherwise, construct a regularized
@@ -83,5 +83,5 @@ fit <- function(TS, num_eigs=NULL, threshold_type='range', ...) {
 
 # test
 mydata = matrix(c(2, 4, 3, 1, 5, 7, 3, 4, 7), nrow=3, ncol=3, byrow = TRUE)
-output <- fit(mydata)
+output <- correlation_matrix_fit(mydata)
 plot(net)

@@ -1,4 +1,4 @@
-# convergent_cross_mapping.py
+# convergent_cross_mapping.R
 # ---------------------------
 # status: Finished draft and some simple tests
 # Graph reconstruction algorithm from time series data based on
