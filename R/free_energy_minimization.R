@@ -11,22 +11,22 @@ source(here::here('constructnet', 'R', 'graph.R'))
 free_energy_minimization_fit <- function(TS, threshold_type='degree', ...){
         # Infer inter-node coupling weights by minimizing a free energy over the
         # data structure.
-        # 
+        #
         # Parameters
         # ----------
-        # 
-        # TS 
+        #
+        # TS
         #     Matrix consisting of :`L` observations from :`N`
         #     sensors.
-        # 
+        #
         # threshold_type (str)
         #     Which thresholding function to use on the matrix of
         #     weights.
-        # 
+        #
         # Returns
         # -------
-        # 
-        # G 
+        #
+        # G
         #     a reconstructed graph.
   N = nrow(TS)
   L = ncol(TS)
@@ -36,32 +36,32 @@ free_energy_minimization_fit <- function(TS, threshold_type='degree', ...){
   ds <- apply(ds, 1, function(x) x - m)
   ds <- t(ds)      # discrepancy
   t1 = L -1        # time limit
-  
+
   # covariance of the discrepeancy
   c = cov.wt(ds, method = 'ML')$cov
   c_inv = solve(c)
   dst = t(ds)       # discrepancy at time t
   W = matrix(1, N, N)
-  nloop = 3     # failsafe
-  
+  nloop = 10000     # failsafe
+
   for(i0 in 1:N){
     TS1 = TS[i0, -1]
     h = TS1
     cost = matrix(100, 1, nloop)
     for(iloop in 1:nloop){
       h_av = mean(h)                        # average local field
-      hs_av = t(dst %*% (h - h_av) / t1)  # deltaE_i delta\sigma_k 
+      hs_av = t(dst %*% (h - h_av) / t1)  # deltaE_i delta\sigma_k
       w = (hs_av %*% c_inv)                 # expectation under model
       h = as.vector(t(t(TS[, -L]) %*% w[,]))  # estimate of local field
       TS_model = tanh(h)                     # under kinetic Ising model
       # discrepancy cost
       cost[iloop] = mean((TS1 - TS_model)**2 )
-      
+
       if(iloop != 1 && (cost[iloop] >= cost[iloop - 1])) {
         break
       }
-      
-      #The original Python code does not work 
+
+      #The original Python code does not work
       #
       # h *= np.divide(
       #   TS1, TS_model, out=np.ones_like(TS1), where=TS_model != 0
@@ -72,11 +72,11 @@ free_energy_minimization_fit <- function(TS, threshold_type='degree', ...){
     }
     W[i0, ] = w[,]
   }
-  
+
   # threshold the network
   W_thresh = threshold(W, threshold_type, ...)
-  
-  
+
+
   G = create_graph(W_thresh)
   # construct the network
   structure(
@@ -88,10 +88,10 @@ free_energy_minimization_fit <- function(TS, threshold_type='degree', ...){
     class = "FreeEnergyMinimization"
   )
 
-  # in the original Python code, function threshold() has side effect 
+  # in the original Python code, function threshold() has side effect
   # which change the value of W to W_thresh. In R, W will not be changed
-  # even after threshold() is applied based on it. 
-  print(W) 
+  # even after threshold() is applied based on it.
+  print(W)
   print(W_thresh)
   results <- G
 }
