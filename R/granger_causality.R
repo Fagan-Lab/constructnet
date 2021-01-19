@@ -127,13 +127,13 @@ split_data <- function(TS, lag){
 
 #test
 TS = matrix(c(-1, -1, -2, -1, 4, 7, 8, -3, -2, 1, 1, 4, 0, 2, 2, 1, 3, 2, -3, -1, 9), nrow=3, ncol=7, byrow = TRUE)
-# Ts = TS[2,]
-# lag = 1
-# # print(split_data(Ts, lag)$inputs)
-# # print(split_data(Ts, lag)$targets)
-# s <- granger_causality_fit(TS)
+Ts = TS[2,]
+lag = 1
+# print(split_data(Ts, lag)$inputs)
+# print(split_data(Ts, lag)$targets)
+s <- granger_causality_fit(TS)
 #plot did not have lines
-# plot(s)
+plot(s)
 
 
 
