@@ -7,11 +7,9 @@
 # author: Chia-Hung Yang and Dina Mistry
 # converted by: Zhaoyi Zhuang
 
-library(igraph)
-library(FNN)
-library(gtools)
-source(here::here('constructnet', 'R', 'threshold.R'))
-source(here::here('constructnet', 'R', 'graph.R'))
+devtools::load_all(".")
+# source(here::here('constructnet', 'R', 'threshold.R'))
+# source(here::here('constructnet', 'R', 'graph.R'))
 
 convergent_cross_mapping_fit <-function(TS, tau = 1, threshold_type='range', cutoffs=list(c(0.95, Inf)), ...) {
     #  Convergent cross-mapping infers dynamical causal relation between
@@ -68,7 +66,7 @@ convergent_cross_mapping_fit <-function(TS, tau = 1, threshold_type='range', cut
   # along with the p-value
   correlation = matrix(1, N, N)
   pvalue = matrix(0, N, N)
-  p <- permutations(N,2, 1:N)
+  p <- gtools::permutations(N,2, 1:N)
   for(x in 1:nrow(p)){
     i <- p[x, ][1]
     j <- p[x, ][2]
@@ -98,13 +96,6 @@ convergent_cross_mapping_fit <-function(TS, tau = 1, threshold_type='range', cut
     ),
     class = "ConvergentCrossMapping"
   )
-
-  #test
-  print(correlation)
-  print(pvalue)
-  print(weights)
-  print(A)
-  results <- G
 }
 
 shadow_data_cloud <- function(data, N, tau) {
@@ -153,8 +144,8 @@ nearest_neighbors <- function(shadow, L) {
   # dist : `M \times (N+1)` array of corresponding Euclidean
   # distance between the data point to the neighbors.
 
-  M = nrow(data)
-  N = ncol(data)
+  M = nrow(shadow)
+  N = ncol(shadow)
   K <- N + 1
 
   if(K < M / 2) {
@@ -163,7 +154,7 @@ nearest_neighbors <- function(shadow, L) {
     method = 'brute'
   }
 
-  nbrs = get.knn(shadow, k = K, algorithm = method)
+  nbrs = FNN::get.knn(shadow, k = K, algorithm = method)
   nei = nbrs[[1]]
   dist = nbrs[[2]]
 
@@ -231,16 +222,10 @@ time_series_estimates <- function(data_y, nei_x, wei_x){
   r = nrow(nei_x)
   c = ncol(nei_x)
 
-  o <- nei_x
-  nei_x <- nei_x + 1    # need to add 1 since in Python 0 represents 1
-  for(i in 1 : r){
-    for(j in 1 : c) {
-      o[i, j] <- data_y[nei_x[i, j]]
-    }
-  }
+  nei_x = nei_x - 1
+  ests <- rowSums((matrix(data_y[nei_x], nrow = r, ncol = c)) * wei_x)
 
-  ests <- rowSums((o * wei_x))
-  results <- ests
+  ests
 }
 
 
@@ -249,4 +234,5 @@ time_series_estimates <- function(data_y, nei_x, wei_x){
 # test
 # TS = matrix(c(-1, -1, -2, -1, 4, 7, 8, -3, -2, 1, 1, 4, 0, 2, 2, 1, 3, 2, -3, -1, 9), nrow=3, ncol=7, byrow = TRUE)
 # s <- convergent_cross_mapping_fit(TS)
-# plot(s)
+# s
+# plot(s$graph)

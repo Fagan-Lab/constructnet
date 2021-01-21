@@ -5,8 +5,9 @@
 # author: Brennan Klein
 # converted by: Zhaoyi Zhuang
 
-source(here::here('constructnet', 'R', 'threshold.R'))
-source(here::here('constructnet', 'R', 'graph.R'))
+devtools::load_all(".")
+# source(here::here('constructnet', 'R', 'threshold.R'))
+# source(here::here('constructnet', 'R', 'graph.R'))
 
 free_energy_minimization_fit <- function(TS, threshold_type='degree', ...){
         # Infer inter-node coupling weights by minimizing a free energy over the
@@ -87,17 +88,10 @@ free_energy_minimization_fit <- function(TS, threshold_type='degree', ...){
     ),
     class = "FreeEnergyMinimization"
   )
-
-  # in the original Python code, function threshold() has side effect
-  # which change the value of W to W_thresh. In R, W will not be changed
-  # even after threshold() is applied based on it.
-  print(W)
-  print(W_thresh)
-  results <- G
 }
 
 #TEST
 # TS = matrix(c(-1, -1, -2, -1, 4, 7, 8, -3, -2, 1, 1, 4, 0, 2, 2, 1, 3, 2, -3, -1, 9), nrow=3, ncol=7, byrow = TRUE)
 # f <- free_energy_minimization_fit(TS)
-# print(f)
-# plot(f)
+# f
+# plot(f$graph)

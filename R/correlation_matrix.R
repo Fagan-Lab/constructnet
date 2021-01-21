@@ -5,8 +5,9 @@
 #author: Stefan McCabe
 #converted by: Zhaoyi Zhuang
 
-source(here::here('constructnet', 'R', 'threshold.R'))
-source(here::here('constructnet', 'R', 'graph.R'))
+devtools::load_all(".")
+# source(here::here('constructnet', 'R', 'threshold.R'))
+# source(here::here('constructnet', 'R', 'graph.R'))
 
 correlation_matrix_fit <- function(TS, num_eigs=NULL, threshold_type='range', ...) {
 
@@ -74,14 +75,11 @@ correlation_matrix_fit <- function(TS, num_eigs=NULL, threshold_type='range', ..
     ),
     class = "correlationMatrix"
   )
-
-  G <- create_graph(A)
-  # return
-  results <- G
 }
 
 
 # test
 # mydata = matrix(c(2, 4, 3, 1, 5, 7, 3, 4, 7), nrow=3, ncol=3, byrow = TRUE)
 # output <- correlation_matrix_fit(mydata)
-# plot(net)
+# output
+# plot(output$graph)

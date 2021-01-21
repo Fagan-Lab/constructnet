@@ -5,10 +5,9 @@
 # author: Charles Murphy
 # converted by: Zhaoyi Zhuang
 
-
-source(here::here('constructnet', 'R', 'threshold.R'))
-source(here::here('constructnet', 'R', 'graph.R'))
-library(pracma)
+devtools::load_all(".")
+# source(here::here('constructnet', 'R', 'threshold.R'))
+# source(here::here('constructnet', 'R', 'graph.R'))
 
 granger_causality_fit <- function(TS, lag = 1, threshold_type = 'range', ...){
     # Reconstruct a network based on the Granger causality.
@@ -52,8 +51,8 @@ granger_causality_fit <- function(TS, lag = 1, threshold_type = 'range', ...){
       err1 = yi - predict(reg1, as.data.frame(xi))
       err2 = suppressWarnings(yi - predict(reg2, as.data.frame(xij)))
 
-      std_i = std(err1, 1)
-      std_ij = std(err2, 1)
+      std_i = pracma::std(err1, 1)
+      std_ij = pracma::std(err2, 1)
 
       if(std_i == 0){
         W[j, i] = -99999999
@@ -79,10 +78,6 @@ granger_causality_fit <- function(TS, lag = 1, threshold_type = 'range', ...){
     ),
     class = "GrangerCausality"
   )
-
-  print(W)
-  print(W_thresh)
-  results <- G
 }
 
 
@@ -126,14 +121,14 @@ split_data <- function(TS, lag){
 
 
 #test
-TS = matrix(c(-1, -1, -2, -1, 4, 7, 8, -3, -2, 1, 1, 4, 0, 2, 2, 1, 3, 2, -3, -1, 9), nrow=3, ncol=7, byrow = TRUE)
-Ts = TS[2,]
-lag = 1
-# print(split_data(Ts, lag)$inputs)
-# print(split_data(Ts, lag)$targets)
-s <- granger_causality_fit(TS)
-#plot did not have lines
-plot(s)
+# TS = matrix(c(-1, -1, -2, -1, 4, 7, 8, -3, -2, 1, 1, 4, 0, 2, 2, 1, 3, 2, -3, -1, 9), nrow=3, ncol=7, byrow = TRUE)
+# Ts = TS[2,]
+# lag = 1
+# # print(split_data(Ts, lag)$inputs)
+# # print(split_data(Ts, lag)$targets)
+# s <- granger_causality_fit(TS)
+# s
+# plot(s$graph)
 
 
 

@@ -5,8 +5,6 @@
 #author: Stefan McCabe (stefanmccabe at gmail dot com)
 #converted by: Zhaoyi Zhuang
 
-library(igraph)
-
 create_graph <- function(A, mode = NULL, remove_self_loops=T) {
     #Flexibly creating a networkx graph from a numpy array.
 
@@ -31,22 +29,22 @@ create_graph <- function(A, mode = NULL, remove_self_loops=T) {
   }
   if (is.null(mode)) {
     if(suppressWarnings(all(A == t(A), tolerance = (1e-05 * abs(t(A)) + 1e-08)))){
-      G <- graph_from_adjacency_matrix(A, mode = "undirected")
-      G <- simplify(G, remove.multiple = T, remove.loops = T)
+      G <- igraph::graph_from_adjacency_matrix(A, mode = "undirected")
+      G <- igraph::simplify(G, remove.multiple = T, remove.loops = T)
     } else {
-      G <- graph_from_adjacency_matrix(A, mode = "directed")
-      G <- simplify(G, remove.multiple = T, remove.loops = T)
+      G <- igraph::graph_from_adjacency_matrix(A, mode = "directed")
+      G <- igraph::simplify(G, remove.multiple = T, remove.loops = T)
     }
   } else {
-    G <- graph_from_adjacency_matrix(A, mode = mode)
-    G <- simplify(G, remove.multiple = T, remove.loops = T)
+    G <- igraph::graph_from_adjacency_matrix(A, mode = mode)
+    G <- igraph::simplify(G, remove.multiple = T, remove.loops = T)
   }
 
-  results <- G
+  G
 }
 
 #test
 # q= matrix(c(1, 4, 3, 2, 5, 1, 3, 4, 7), nrow=3, ncol=3, byrow = TRUE)
-# net <- create_graph(q, 'max')
+# net <- create_graph(q)
 # plot(net)
 
