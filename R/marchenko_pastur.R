@@ -5,7 +5,6 @@
 # author: Matteo Chinazzi
 # converted by: Zhaoyi Zhuang
 
-devtools::load_all(".")
 # source(here::here('constructnet', 'R', 'threshold.R'))
 # source(here::here('constructnet', 'R', 'graph.R'))
 

@@ -7,7 +7,6 @@
 # author: Chia-Hung Yang and Dina Mistry
 # converted by: Zhaoyi Zhuang
 
-devtools::load_all(".")
 # source(here::here('constructnet', 'R', 'threshold.R'))
 # source(here::here('constructnet', 'R', 'graph.R'))
 

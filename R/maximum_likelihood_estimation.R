@@ -5,7 +5,6 @@
 # author: Brennan Klein
 # converted by: Zhaoyi Zhuang
 
-devtools::load_all(".")
 # source(here::here( 'R', 'threshold.R'))
 # source(here::here( 'R', 'graph.R'))
 

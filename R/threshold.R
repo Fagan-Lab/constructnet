@@ -230,7 +230,6 @@ threshold <- function(mat, rule, ...) {
   }, error = function(e) {
     stop("missing threshold parameter")
   })
-
 }
 
 
