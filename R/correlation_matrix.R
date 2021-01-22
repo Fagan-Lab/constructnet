@@ -1,13 +1,21 @@
 #correlation_matrix.R
 #------------
 #status: Finished draft and some simple tests
-#Reconstruction of graphs using the correlation matrix.
+#'Reconstruction of graphs using the correlation matrix.
 #author: Stefan McCabe
 #converted by: Zhaoyi Zhuang
 
-# source(here::here('constructnet', 'R', 'threshold.R'))
-# source(here::here('constructnet', 'R', 'graph.R'))
-
+#' @param TS Matrix consisting of L observations from N sensors
+#'
+#' @param num_eigs The number of eigenvalues to use. (This corresponds to the
+#'                 amount of regularization.) The number of eigenvalues used must
+#'                 be less than N.
+#'
+#' @param threshold_type Which thresholding function to use on the matrix of weights.
+#'
+#' @param ... ARGUMENTS
+#'
+#' @export
 correlation_matrix_fit <- function(TS, num_eigs=NULL, threshold_type='range', ...) {
 
         #If ``num_eigs`` is `Null`, perform the reconstruction using the
@@ -15,19 +23,6 @@ correlation_matrix_fit <- function(TS, num_eigs=NULL, threshold_type='range', ..
         #precision matrix using ``num_eigs`` eigenvectors and eigenvalues of the
         #correlation matrix.
 
-        #Parameters
-        #----------
-        #TS matrix
-        #    Matrix consisting of :`L` observations from :`N` sensors
-
-        #num_eigs (int)
-        #    The number of eigenvalues to use. (This corresponds to the
-        #    amount of regularization.) The number of eigenvalues used must
-        #    be less than :`N`.
-
-        #threshold_type (str)
-        #    Which thresholding function to use on the matrix of
-        #    weights.
         #Returns
         #-------
         #  G

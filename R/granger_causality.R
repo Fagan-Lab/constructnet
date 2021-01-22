@@ -1,32 +1,26 @@
 # granger_causality.R
 # --------------
 # status: Finished draft and some simple tests
-# Graph reconstruction algorithm
+#' Graph reconstruction algorithm
 # author: Charles Murphy
 # converted by: Zhaoyi Zhuang
 
+# devtools::load_all(".")
 # source(here::here('constructnet', 'R', 'threshold.R'))
 # source(here::here('constructnet', 'R', 'graph.R'))
 
+#' @param TS Array consisting of L observations from N sensors.
+#'
+#' @param lag Time lag to consider.
+#' @param threshold_type Which thresholding function to use on the matrix of weights.
+#' @param ... Arguments
+#'
+#' @export
 granger_causality_fit <- function(TS, lag = 1, threshold_type = 'range', ...){
     # Reconstruct a network based on the Granger causality.
     # It reconstructs the network by calculating the Granger
     # causality for each pair of nodes.
-    #
-    # Parameters
-    # ----------
-    #
-    #   TS matrix
-    # Array consisting of :`L` observations from :`N`
-    # sensors.
-    #
-    # lag (int)
-    # Time lag to consider.
-    #
-    # threshold_type (str)
-    # Which thresholding function to use on the matrix of
-    # weights.
-    #
+
     # Returns
     # --------
     #

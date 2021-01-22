@@ -1,28 +1,24 @@
 # free_energy_minimization.R
 # ---------------------------
 # status: Finished draft and some simple tests
-# Reconstruction of graphs by minimizing a free energy of your data
+#' Reconstruction of graphs by minimizing a free energy of your data
 # author: Brennan Klein
 # converted by: Zhaoyi Zhuang
 
+# devtools::load_all(".")
 # source(here::here('constructnet', 'R', 'threshold.R'))
 # source(here::here('constructnet', 'R', 'graph.R'))
 
+#' @param TS  Matrix consisting of L observations from N sensors.
+#'
+#' @param threshold_type Which thresholding function to use on the matrix of weights.
+#' @param ... Arguments
+#'
+#' @export
 free_energy_minimization_fit <- function(TS, threshold_type='degree', ...){
         # Infer inter-node coupling weights by minimizing a free energy over the
         # data structure.
-        #
-        # Parameters
-        # ----------
-        #
-        # TS
-        #     Matrix consisting of :`L` observations from :`N`
-        #     sensors.
-        #
-        # threshold_type (str)
-        #     Which thresholding function to use on the matrix of
-        #     weights.
-        #
+
         # Returns
         # -------
         #

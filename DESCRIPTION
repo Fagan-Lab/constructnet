@@ -20,7 +20,12 @@ Encoding: UTF-8
 LazyData: true
 Suggests: 
     testthat
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 Imports: 
     magrittr,
-    igraph
+    igraph,
+    devtools,
+    FNN,
+    glasso,
+    gtools,
+    pracma

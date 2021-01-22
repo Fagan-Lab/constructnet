@@ -1,38 +1,26 @@
 # graphical_lasso.R
 # --------------
 # status: Finished draft and some simple tests
-# Graph reconstruction algorithm.
+#' Graph reconstruction algorithm.
 # author: Charles Murphy
 # converted by: Zhaoyi Zhuang
 
+# devtools::load_all(".")
 # source(here::here('constructnet', 'R', 'threshold.R'))
 # source(here::here('constructnet', 'R', 'graph.R'))
 
+#' @param TS Matrix consisting of L observations from N sensors.
+#'
+#' @param alpha Coefficient of penalization, higher values means more sparseness
+#' @param max_iter Maximum number of iterations.
+#' @param tol Stop the algorithm when the duality gap is below a certain threshold.
+#' @param threshold_type Which thresholding function to use on the matrix of weights.
+#' @param ... Arguments
+#'
+#' @export
 graphical_lasso_fit <- function(TS, alpha = 0.01, max_iter = 100, tol = 0.0001, threshold_type = 'degree', ...){
         # Performs a graphical lasso.
-        #
-        # Parameters
-        # ----------
-        #
-        # TS
-        #     Matrix consisting of :`L` observations from :`N`
-        #     sensors.
-        #
-        # alpha
-        #     Coefficient of penalization, higher values means more
-        #     sparseness
-        #
-        # max_iter
-        #     Maximum number of iterations.
-        #
-        # tol
-        #     Stop the algorithm when the duality gap is below a certain
-        #     threshold.
-        #
-        # threshold_type
-        #     Which thresholding function to use on the matrix of
-        #     weights.
-        #
+
         # Returns
         # -------
         #

@@ -1,7 +1,6 @@
 #threshold.R
 #------------
 #status: Finished draft and some simple tests
-#Utilities for thresholding matrices based on different criteria
 #author: Stefan McCabe (stefanmccabe at gmail dot com)
 #converted by: Zhaoyi Zhuang
 
@@ -193,20 +192,15 @@ threshold_on_degree <- function(mat, ...) {
 }
 
 
+#' Utilities for thresholding matrices based on different criteria
+#' @param mat input matrix
+#'
+#' @param rule A string indicating which thresholding function to invoke.
+#' @param ... Arguments
+#'
+#' @export
 threshold <- function(mat, rule, ...) {
     #A flexible interface to other thresholding functions.
-
-    #Parameters
-    #----------
-
-    #mat
-    #   matrix
-
-    #rule (str)
-    #    A string indicating which thresholding function to invoke.
-
-    #kwargs (dict)
-    #    Named arguments to pass to the underlying threshold function.
 
     #Returns
     #-------
@@ -230,6 +224,7 @@ threshold <- function(mat, rule, ...) {
   }, error = function(e) {
     stop("missing threshold parameter")
   })
+
 }
 
 

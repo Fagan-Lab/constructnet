@@ -1,27 +1,32 @@
 # marchenko_pastur.R
 # --------------
 # status: Finished draft and some simple tests
-# Graph reconstruction algorithm.
+#' Graph reconstruction algorithm.
 # author: Matteo Chinazzi
 # converted by: Zhaoyi Zhuang
 
+# devtools::load_all(".")
 # source(here::here('constructnet', 'R', 'threshold.R'))
 # source(here::here('constructnet', 'R', 'graph.R'))
 
+
+#' @param TS N * L matrix consisting of L observations from N sensors.
+#'
+#' @param remove_largest If False, all the eigenvectors associated to the
+#' significant eigenvalues will be used to reconstruct the
+#' de-noised empirical correlation matrix. If True, the
+#' eigenvector associated to the largest eigenvalue is going to be excluded from
+#' the recontruction step.
+#' @param metric_distance If False, a signed graph is obtained. If True, the correlation
+#' is transformed by defining a metric distance between each pair of nodes
+#' @param tol avoid minor difference between python and r in case of calculating eigen values
+#' @param threshold_type Which thresholding function to use on the matrix of weights.
+#' @param ... Arguments
+#'
+#' @export
 marchenko_pastur_fit <- function(TS, remove_largest=F, metric_distance=F, tol = 1e-15, threshold_type='range', ...){
   # Create a correlation-based graph using Marchenko-Pastur law to remove noise.
-  # Parameters
-  # ----------
-  #
-  # TS
-  #   N times L matrix consisting of `L` observations
-  #   from `N` sensors.
-  #
-  # remove_largest (bool)
-  #
-  # tol
-  #  avoid minor difference between python and r in case of calculating eigen values
-  #
+
   # Returns
   # -------
   #
