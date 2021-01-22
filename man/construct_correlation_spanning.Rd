@@ -6,6 +6,13 @@
 \usage{
 construct_correlation_spanning(inputArray, distance, ...)
 }
+\arguments{
+\item{inputArray}{inputArray}
+
+\item{distance}{distance}
+
+\item{...}{...}
+}
 \description{
 Creates a minimum spanning tree connecting the sensors.
 }

@@ -1,7 +1,12 @@
 #' Reconstruct a network from a random matrix, not taking time series into account.
 #' @export
 # inputThreshold <- threshold(inputArray, min = -Inf, max = Inf)
-construct_random <- function(inputArray, inputThreshold,...) UseMethod("construct_random")
+#' @param inputArray inputArray
+#' @param inputThreshold inputThreshold
+#' @param ... ...
+#'
+#' @export
+construct_random <- function(inputArray, inputThreshold,...) {UseMethod("construct_random")}
 
 #' @export
 construct_random.igraph <- function(inputArray, inputThreshold,...){

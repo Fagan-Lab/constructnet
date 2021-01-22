@@ -6,6 +6,13 @@
 \usage{
 construct_random(inputArray, inputThreshold, ...)
 }
+\arguments{
+\item{inputArray}{inputArray}
+
+\item{inputThreshold}{inputThreshold}
+
+\item{...}{...}
+}
 \description{
 Reconstruct a network from a random matrix, not taking time series into account.
 }

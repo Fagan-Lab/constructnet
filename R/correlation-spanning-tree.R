@@ -1,7 +1,13 @@
 #' Creates a minimum spanning tree connecting the sensors.
 #' @export
 #distance <-distances(inverse.sqrt)
-construct_correlation_spanning <- function(inputArray, distance, ...) UseMethod("construct_correlation_spanning")
+#'
+#' @param inputArray inputArray
+#' @param distance distance
+#' @param ... ...
+#'
+#' @export
+construct_correlation_spanning <- function(inputArray, distance, ...) {UseMethod("construct_correlation_spanning")}
 
 #' @export
 construct_correlation_spanning.igraph <-function(inputArray, distance, ...){
