@@ -1,9 +1,5 @@
-#graph.R
-#--------
-#status: Finished draft and some simple tests
+
 #' Utilities for creating and interacting with graph objects.
-#author: Stefan McCabe (stefanmccabe at gmail dot com)
-#converted by: Zhaoyi Zhuang
 
 #' @param A input MATRIX
 #'
@@ -38,8 +34,4 @@ create_graph <- function(A, mode = NULL, remove_self_loops=T) {
   G
 }
 
-#test
-# q= matrix(c(1, 4, 3, 2, 5, 1, 3, 4, 7), nrow=3, ncol=3, byrow = TRUE)
-# net <- create_graph(q)
-# plot(net)
 

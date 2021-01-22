@@ -2,7 +2,7 @@
 % Please edit documentation in R/convergent_cross_mapping.R
 \name{convergent_cross_mapping_fit}
 \alias{convergent_cross_mapping_fit}
-\title{Graph reconstruction algorithm from time series data based on}
+\title{Graph reconstruction algorithm from time series data}
 \usage{
 convergent_cross_mapping_fit(
   TS,
@@ -25,5 +25,5 @@ from N sensors.}
 \item{...}{arguments}
 }
 \description{
-Graph reconstruction algorithm from time series data based on
+Graph reconstruction algorithm from time series data
 }

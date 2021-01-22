@@ -1,13 +1,5 @@
-# granger_causality.R
-# --------------
-# status: Finished draft and some simple tests
-#' Graph reconstruction algorithm
-# author: Charles Murphy
-# converted by: Zhaoyi Zhuang
 
-# devtools::load_all(".")
-# source(here::here('constructnet', 'R', 'threshold.R'))
-# source(here::here('constructnet', 'R', 'graph.R'))
+#' Graph reconstruction algorithm
 
 #' @param TS Array consisting of L observations from N sensors.
 #'
@@ -110,25 +102,6 @@ split_data <- function(TS, lag){
   mylist <- list("inputs" = inputs, "targets" = t(targets))
   return(mylist)
 }
-
-
-
-#test
-# TS = matrix(c(-1, -1, -2, -1, 4, 7, 8, -3, -2, 1, 1, 4, 0, 2, 2, 1, 3, 2, -3, -1, 9), nrow=3, ncol=7, byrow = TRUE)
-# Ts = TS[2,]
-# lag = 1
-# # print(split_data(Ts, lag)$inputs)
-# # print(split_data(Ts, lag)$targets)
-# s <- granger_causality_fit(TS)
-# s
-# plot(s$graph)
-
-
-
-
-
-
-
 
 
 

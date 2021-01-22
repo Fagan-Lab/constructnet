@@ -1,9 +1,3 @@
-#threshold.R
-#------------
-#status: Finished draft and some simple tests
-#author: Stefan McCabe (stefanmccabe at gmail dot com)
-#converted by: Zhaoyi Zhuang
-
 
 mask_function <- function(mat, cutoffs) {
   #setting values not within a list of ranges to zero and others to one.
@@ -16,9 +10,7 @@ mask_function <- function(mat, cutoffs) {
   #cutoffs (list of tuples)
   #    When thresholding, include only edges whose correlations fall
   #    within a given range or set of ranges. The lower value must come
-  #    first in each tuple. For example, to keep those values whose
-  #    absolute value is between :math:`0.5` and :math:`1`, pass
-  #    ``cutoffs=[(-1, -0.5), (0.5, 1)]``.
+  #    first in each tuple.
   #Returns
   #-------
   #  mask
@@ -45,9 +37,7 @@ threshold_in_range <- function(mat, ...){
     #cutoffs (list of tuples)
     #    When thresholding, include only edges whose correlations fall
     #    within a given range or set of ranges. The lower value must come
-    #    first in each tuple. For example, to keep those values whose
-    #    absolute value is between :math:`0.5` and :math:`1`, pass
-    #    ``cutoffs=[(-1, -0.5), (0.5, 1)]``.
+    #    first in each tuple.
     #Returns
     #-------
     #  thresholded_mat
@@ -229,26 +219,3 @@ threshold <- function(mat, rule, ...) {
 
 
 
-
-
-# test
-# m = matrix(c(1, 4, 3, 1, 5, 7, 3, 4, 7), nrow=3, ncol=3, byrow = TRUE)
-# cutoffs <- list(c(-1, 1), c(1, 3))
-# print(threshold(m, "range", cutoffs = cutoffs, binary = T))
-# print(threshold(m, "range", cutoffs = cutoffs, binary = T, remove_self_loops = F))
-# print(threshold(m, "range", cutoffs = cutoffs, binary = F, remove_self_loops = F))
-# print(threshold(m, "range", cutoffs = cutoffs, binary = F, remove_self_loops = T))
-#
-# print(threshold(m, 'degree', binary = T))
-# print(threshold(m, 'degree', binary = T, remove_self_loops = F))
-# print(threshold(m, 'degree', binary = F, remove_self_loops = F))
-# print(threshold(m, 'degree', binary = F, remove_self_loops = T))
-#
-# print(threshold(m, 'quantile', binary = T))
-# print(threshold(m, 'quantile', binary = T, remove_self_loops = F))
-# print(threshold(m, 'quantile', binary = F, remove_self_loops = F))
-# print(threshold(m, 'quantile', binary = F, remove_self_loops = T))
-#
-# print(threshold(m, 'q', binary = T))
-
-# print(threshold(m, 'custom'))

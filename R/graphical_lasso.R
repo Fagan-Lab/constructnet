@@ -1,13 +1,5 @@
-# graphical_lasso.R
-# --------------
-# status: Finished draft and some simple tests
-#' Graph reconstruction algorithm.
-# author: Charles Murphy
-# converted by: Zhaoyi Zhuang
 
-# devtools::load_all(".")
-# source(here::here('constructnet', 'R', 'threshold.R'))
-# source(here::here('constructnet', 'R', 'graph.R'))
+#' Graph reconstruction algorithm.
 
 #' @param TS Matrix consisting of L observations from N sensors.
 #'
@@ -45,16 +37,4 @@ graphical_lasso_fit <- function(TS, alpha = 0.01, max_iter = 100, tol = 0.0001, 
     class = "GraphicalLasso"
   )
 }
-
-
-
-#test
-# TS = matrix(c(-1, -1, -2, -1, 4, 7, 8, -3, -2, 1, 1, 4, 0, 2, 2, 1, 3, 2, -3, -1, 9), nrow=3, ncol=7, byrow = TRUE)
-# x <- graphical_lasso_fit(TS)
-# x
-# plot(x$graph)
-
-
-
-
 

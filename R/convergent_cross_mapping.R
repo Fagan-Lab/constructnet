@@ -1,15 +1,6 @@
-# convergent_cross_mapping.R
-# ---------------------------
-# status: Finished draft and some simple tests
-#' Graph reconstruction algorithm from time series data based on
-# Sugihara et al., Detecting Causality in Complex Ecosystems, Science (2012)
-# DOI: 10.1126/science.1227079
-# author: Chia-Hung Yang and Dina Mistry
-# converted by: Zhaoyi Zhuang
 
-# devtools::load_all(".")
-# source(here::here('constructnet', 'R', 'threshold.R'))
-# source(here::here('constructnet', 'R', 'graph.R'))
+#' Graph reconstruction algorithm from time series data
+
 
 #' @param TS input matrix, N * L matrix consisting of L observations
 #'           from N sensors.
@@ -227,12 +218,3 @@ time_series_estimates <- function(data_y, nei_x, wei_x){
 
   ests
 }
-
-
-
-
-# test
-# TS = matrix(c(-1, -1, -2, -1, 4, 7, 8, -3, -2, 1, 1, 4, 0, 2, 2, 1, 3, 2, -3, -1, 9), nrow=3, ncol=7, byrow = TRUE)
-# s <- convergent_cross_mapping_fit(TS)
-# s
-# plot(s$graph)

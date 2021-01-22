@@ -1,13 +1,6 @@
-# free_energy_minimization.R
-# ---------------------------
-# status: Finished draft and some simple tests
-#' Reconstruction of graphs by minimizing a free energy of your data
-# author: Brennan Klein
-# converted by: Zhaoyi Zhuang
 
-# devtools::load_all(".")
-# source(here::here('constructnet', 'R', 'threshold.R'))
-# source(here::here('constructnet', 'R', 'graph.R'))
+#' Reconstruction of graphs by minimizing a free energy of your data
+
 
 #' @param TS  Matrix consisting of L observations from N sensors.
 #'
@@ -85,8 +78,3 @@ free_energy_minimization_fit <- function(TS, threshold_type='degree', ...){
   )
 }
 
-#TEST
-# TS = matrix(c(-1, -1, -2, -1, 4, 7, 8, -3, -2, 1, 1, 4, 0, 2, 2, 1, 3, 2, -3, -1, 9), nrow=3, ncol=7, byrow = TRUE)
-# f <- free_energy_minimization_fit(TS)
-# f
-# plot(f$graph)

@@ -1,9 +1,5 @@
-#correlation_matrix.R
-#------------
-#status: Finished draft and some simple tests
+
 #'Reconstruction of graphs using the correlation matrix.
-#author: Stefan McCabe
-#converted by: Zhaoyi Zhuang
 
 #' @param TS Matrix consisting of L observations from N sensors
 #'
@@ -71,9 +67,3 @@ correlation_matrix_fit <- function(TS, num_eigs=NULL, threshold_type='range', ..
   )
 }
 
-
-# test
-# mydata = matrix(c(2, 4, 3, 1, 5, 7, 3, 4, 7), nrow=3, ncol=3, byrow = TRUE)
-# output <- correlation_matrix_fit(mydata)
-# output
-# plot(output$graph)

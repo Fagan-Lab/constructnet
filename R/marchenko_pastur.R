@@ -1,13 +1,5 @@
-# marchenko_pastur.R
-# --------------
-# status: Finished draft and some simple tests
-#' Graph reconstruction algorithm.
-# author: Matteo Chinazzi
-# converted by: Zhaoyi Zhuang
 
-# devtools::load_all(".")
-# source(here::here('constructnet', 'R', 'threshold.R'))
-# source(here::here('constructnet', 'R', 'graph.R'))
+#' Graph reconstruction algorithm.
 
 
 #' @param TS N * L matrix consisting of L observations from N sensors.
@@ -78,20 +70,4 @@ marchenko_pastur_fit <- function(TS, remove_largest=F, metric_distance=F, tol = 
     class = "GraphicalLasso"
   )
 }
-
-
-#test
-# TS = matrix(c(-1, -1, -2, -1, 4, 7, 8, -3, -2, 1, 1, 4, 0, 2, 2, 1, 3, 2, -3, -1, 9), nrow=3, ncol=7, byrow = TRUE)
-# m <- marchenko_pastur_fit(TS, T)
-# m
-# plot(m$graph)
-#
-# TS = matrix(c(6, 3, 1, 5, 3, 0, 5, 1, 1, 5, 6, 2, 5, 1, 2, 2), nrow = 4, ncol = 4)
-# m <- marchenko_pastur_fit(TS, T, T)
-
-
-
-
-
-
 
