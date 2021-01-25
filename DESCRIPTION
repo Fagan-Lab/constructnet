@@ -28,4 +28,5 @@ Imports:
     FNN,
     glasso,
     gtools,
-    pracma
+    pracma,
+    Dict
