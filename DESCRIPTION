@@ -29,4 +29,6 @@ Imports:
     glasso,
     gtools,
     pracma,
-    Dict
+    Dict,
+    ramify,
+    DescTools
