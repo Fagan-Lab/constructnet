@@ -1,7 +1,5 @@
-
 #' Graph reconstruction algorithm.
-
-
+#'
 #' @param TS N * L matrix consisting of L observations from N sensors.
 #'
 #' @param remove_largest If False, all the eigenvectors associated to the
@@ -17,15 +15,9 @@
 #'
 #' @export
 marchenko_pastur_fit <- function(TS, remove_largest = F, metric_distance = F, tol = 1e-15, threshold_type = "range", ...) {
-  # Create a correlation-based graph using Marchenko-Pastur law to remove noise.
-
-  # Returns
-  # -------
-  #
-  #   G
-  #     A reconstructed graph.
   N <- nrow(TS)
   L <- ncol(TS)
+
   if (N > L) {
     stop('"L must be greater or equal than N."')
   }

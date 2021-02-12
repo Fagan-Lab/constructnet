@@ -1,20 +1,5 @@
 
 mask_function <- function(mat, cutoffs) {
-  # setting values not within a list of ranges to zero and others to one.
-
-  # Parameters
-  #----------
-  # mat
-  #   matrix
-
-  # cutoffs (list of tuples)
-  #    When thresholding, include only edges whose correlations fall
-  #    within a given range or set of ranges. The lower value must come
-  #    first in each tuple.
-  # Returns
-  #-------
-  #  mask
-  #     matrix
   mask <- mat
   for (row in 1:nrow(mat)) {
     for (col in 1:ncol(mat)) {
@@ -23,27 +8,11 @@ mask_function <- function(mat, cutoffs) {
       }
     }
   }
-  result <- mask
+
+  mask
 }
 
 threshold_in_range <- function(mat, ...) {
-  # Threshold by setting values not within a list of ranges to zero.
-
-  # Parameters
-  #----------
-  # mat
-  #   matrix
-
-  # cutoffs (list of tuples)
-  #    When thresholding, include only edges whose correlations fall
-  #    within a given range or set of ranges. The lower value must come
-  #    first in each tuple.
-  # Returns
-  #-------
-  #  thresholded_mat
-  #     the thresholded matrix
-
-
   kwargs <- list(...)
   if ("cutoffs" %in% names(kwargs)) {
     cutoffs <- kwargs[["cutoffs"]]
@@ -69,29 +38,13 @@ threshold_in_range <- function(mat, ...) {
     diag(thresholded_mat) <- 0
   }
 
-  result <- thresholded_mat
+  thresholded_mat
 }
 
 
 threshold_on_quantile <- function(mat, ...) {
-  # Threshold by setting values below a given quantile to zero.
-
-  # Parameters
-  #----------
-
-  # mat
-  #   matrix
-
-  # quantile (float)
-  #    The threshold above which to keep an element of the array, e.g.,
-  #    set to zero elements below the 90th quantile of the array.
-
-  # Returns
-  #-------
-  # thresholded_mat
-  #    the thresholded matrix
-
   kwargs <- list(...)
+
   if ("quantile" %in% names(kwargs)) {
     quantile <- kwargs[["quantile"]]
   } else {
@@ -119,27 +72,13 @@ threshold_on_quantile <- function(mat, ...) {
     }
   }
 
-  result <- thresholded_mat
+  thresholded_mat
 }
 
 
 threshold_on_degree <- function(mat, ...) {
-  # Threshold by setting values below a given quantile to zero.
-
-  # Parameters
-  #----------
-
-  # mat
-  #  matrix
-
-  # avg_k (float)
-  #    The average degree to target when thresholding the matrix.
-
-  # Returns
-  #-------
-  # thresholded_mat
-  #    the thresholded matrix
   kwargs <- list(...)
+
   if ("avg_k" %in% names(kwargs)) {
     avg_k <- kwargs[["avg_k"]]
   } else {
@@ -178,11 +117,12 @@ threshold_on_degree <- function(mat, ...) {
     }
   }
 
-  result <- thresholded_mat
+  thresholded_mat
 }
 
 
 #' Utilities for thresholding matrices based on different criteria
+#'
 #' @param mat input matrix
 #'
 #' @param rule A string indicating which thresholding function to invoke.
@@ -190,15 +130,9 @@ threshold_on_degree <- function(mat, ...) {
 #'
 #' @export
 threshold <- function(mat, rule, ...) {
-  # A flexible interface to other thresholding functions.
-
-  # Returns
-  #-------
-  # thresholded_mat
-  #    the thresholded matrix
-
   kwargs <- list(...)
-  result <- tryCatch(
+
+  tryCatch(
     {
       if (rule == "degree") {
         threshold_on_degree(mat, ...)

@@ -1,4 +1,3 @@
-
 #' Reconstruction of graphs using maximum likelihood estimation
 
 #' @param TS Matrix consisting of L observations from N sensors.
@@ -10,16 +9,6 @@
 #'
 #' @export
 maximum_likelihood_estimation_fit <- function(TS, rate = 1.0, stop_criterion = T, threshold_type = "degree", ...) {
-  # Infer inter-node coupling weights using maximum likelihood estimation
-  # methods.
-  # The results dictionary also stores the weight matrix as
-  # `'weights_matrix'` and the thresholded version of the weight matrix
-  # as `'thresholded_matrix'`.
-
-  # Returns
-  # -------
-  #   G
-  #      a reconstructed graph.
   N <- nrow(TS)
   L <- ncol(TS)
   rate <- rate / L
@@ -46,8 +35,8 @@ maximum_likelihood_estimation_fit <- function(TS, rate = 1.0, stop_criterion = T
     }
     W[i0, ] <- w
   }
-  W_thresh <- threshold(W, threshold_type, ...)
 
+  W_thresh <- threshold(W, threshold_type, ...)
   G <- create_graph(W_thresh)
 
   structure(

@@ -1,7 +1,5 @@
-
 #' Graph reconstruction algorithm from time series data
-
-
+#'
 #' @param TS input matrix, N * L matrix consisting of L observations
 #'           from N sensors.
 #'
@@ -12,15 +10,6 @@
 #'
 #' @export
 convergent_cross_mapping_fit <- function(TS, tau = 1, threshold_type = "range", cutoffs = list(c(0.95, Inf)), ...) {
-  #  Convergent cross-mapping infers dynamical causal relation between
-  #  vairiables from time series data
-
-  # Returns
-  # -------
-  #
-  #   G
-  # A reconstructed graph with :`N` nodes.
-
   data <- t(TS)
   L <- nrow(data)
   N <- ncol(data)
@@ -28,7 +17,6 @@ convergent_cross_mapping_fit <- function(TS, tau = 1, threshold_type = "range", 
   if (L < 3 + (N - 1) * (1 + tau)) {
     stop("Need more data. L must be not less than 3+(N-1)*(1+tau).")
   }
-
 
   # Create shadow data cloud for each variable
   shadows <- matrix(list(matrix(list(), nrow = 1, ncol = L)), nrow = 1, ncol = N)
@@ -90,19 +78,6 @@ convergent_cross_mapping_fit <- function(TS, tau = 1, threshold_type = "range", 
 }
 
 shadow_data_cloud <- function(data, N, tau) {
-  # Return the lagged-vector data cloud of a given variable's time series.
-  #
-  # Parameters
-  # ----------
-  # data : Length:`L` 1D array of a single variable's times series.
-  #
-  # N (int): Number of variables.
-  #
-  # tau (int): Number of time steps for a single time-lag.
-  #
-  # Returns
-  # -------
-  # shadow : :`M \times aN` array of the lagged-vector data cloud,
   L <- length(data)
   M <- L - (N - 1) * tau # Number of points in the shadow data cloud
   shadow <- matrix(0, M, N)
@@ -112,29 +87,11 @@ shadow_data_cloud <- function(data, N, tau) {
     shadow[, j] <- data[(delta + 1):(delta + M)] # + 1 because of the difference between Python and R
   }
 
-  results <- shadow
+  shadow
 }
 
 
 nearest_neighbors <- function(shadow, L) {
-  # Return time indices of the N+1 nearest neighbors for every point in the
-  # shadow data cloud and their corresponding Euclidean distances.
-  #
-  # Parameters
-  # ----------
-  #   shadow : Array of the shadow data cloud.
-  #
-  # L (int): Number of observations in the time series.
-  #
-  # Returns
-  # -------
-  #   nei : `M \times (N+1)` array of time indices of nearest
-  # neighbors where :`M` is the number of points in the
-  # shadow data cloud.
-  #
-  # dist : `M \times (N+1)` array of corresponding Euclidean
-  # distance between the data point to the neighbors.
-
   M <- nrow(shadow)
   N <- ncol(shadow)
   K <- N + 1
@@ -160,20 +117,6 @@ nearest_neighbors <- function(shadow, L) {
 
 
 neighbor_weights <- function(dist) {
-  # Return the weights of neighbors in time seires estimates.
-  #
-  # Parameters
-  # ----------
-  # dist :`M \times (N+1)` array of Euclidean distances between a
-  #                    point to its nearest neighbors in the shadow data cloud
-  #                    (sorted by increasing order of distances), where `M` is
-  #                    the number of points in the shadow data cloud.
-  #
-  # Returns
-  # -------
-  # wei:`M \times (N+1)` array of exponentially decaying weights
-  #                   of the nearest neighbors.
-
   r <- nrow(dist)
   c <- ncol(dist)
 
@@ -187,29 +130,12 @@ neighbor_weights <- function(dist) {
       dist[i][1] <- 1
     }
   }
-  dist <- dist / rowSums(dist)
-  results <- dist
+
+  dist / rowSums(dist)
 }
 
 
 time_series_estimates <- function(data_y, nei_x, wei_x) {
-  # Return estimates of variable :math:`Y` from variable :math:`X`'s shadow data cloud.
-  #
-  # Parameters
-  # ----------
-  # data_y : 1D array of variable :math:`Y`'s time series data.
-  #
-  # nei_x : :math:`M \times (N+1)` array of time indices of nearest
-  #                     neighbors in :math:`X`'s shadow data cloud, where :math:`M` is the
-  #                     number of points in the shadow data cloud.
-  #
-  # wei_x : Array of corresponding weights of the nearest
-  #                     neighbors in :math:`X`'s shadow data cloud.
-  #
-  # Returns
-  # -------
-  # ests : Length-:math:`M` 1D array of estimates of :math:`Y`'s time series.
-
   r <- nrow(nei_x)
   c <- ncol(nei_x)
 
