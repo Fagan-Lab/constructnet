@@ -1,15 +1,4 @@
 joint_entropy <- function(data) {
-  # Joint entropy of all variables in the data.
-  # Parameters
-  # ----------
-  #   data
-  # matrix of data with variables as columns and observations as rows.
-  #
-  #  Returns
-  #  -------
-  #  float
-  #      Joint entropy of the variables of interests.
-
   count <- Dict::dict()
   N <- nrow(data)
   L <- ncol(data)
@@ -32,6 +21,7 @@ joint_entropy <- function(data) {
 
 #' Conditional entropy of variables in the data conditioned on
 #' a given set of variables.
+#'
 #' @param data matrix of data with variables of interests as columns and
 #' observations as rows.
 #' @param given matrix of data with the conditioned variables as columns and
@@ -40,13 +30,6 @@ joint_entropy <- function(data) {
 #' @export
 #'
 conditional_entropy <- function(data, given) {
-
-  #
-  #  Returns
-  #  -------
-  #  float
-  #      Conditional entrpoy of the variables X_i of interest
-  #      conditioned on variables Y_j.
   joint <- cbind(data, given)
   entrp <- joint_entropy(joint) - joint_entropy(given)
   entrp
@@ -60,9 +43,6 @@ conditional_entropy <- function(data, given) {
 #' @export
 #'
 categorized_data <- function(raw, n_bins) {
-  # Returns
-  # -------
-  # Matrix of bin indices after categorizing the raw data.
   N <- nrow(raw)
   L <- ncol(raw)
   bins <- linear_bins(raw, n_bins)
@@ -73,30 +53,19 @@ categorized_data <- function(raw, n_bins) {
       data[i, j] <- ramify::argmax(x)
     }
   }
+
   data
 }
 
 
 linear_bins <- function(raw, n_bins) {
-  # Separators of linear bins for each variable in the raw data.
-  #
-  # Parameters
-  # ----------
-  #   raw
-  # matrix of raw continuous data.
-  #
-  # n_bins (int)
-  # A universal number of bins for all the variables.
-  #
-  # Returns
-  # -------
-  # matrix where a column is the separators of bins for a variable.
   minm <- apply(raw, 2, min)
   maxm <- apply(raw, 2, max)
   bins <- vector()
+
   for (i in 1:length(minm)) {
     bins <- append(bins, pracma::linspace(minm[i], maxm[i], n = n_bins + 1))
   }
-  bins <- matrix(bins, nrow = n_bins + 1, ncol = length(minm), byrow = F)
-  bins
+
+  matrix(bins, nrow = n_bins + 1, ncol = length(minm), byrow = F)
 }

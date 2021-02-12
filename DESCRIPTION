@@ -1,7 +1,7 @@
 Package: constructnet
 Type: Package
 Title: Network reconstruction from time series 
-Version: 0.1.0.9000
+Version: 1.0.0
 Authors@R: c(
     person("Travis", "Byrum", email = "tbyrum@terpmail.umd.edu",
            role = c("aut", "cre")),
