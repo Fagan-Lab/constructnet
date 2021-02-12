@@ -1,19 +1,15 @@
-#' # exact_mean_field.R
-#' # ---------------------
-#' #' Reconstruction of graphs using the exact mean field
+#' Reconstruction of graphs using the exact mean field
 #'
-#' source(here::here( 'R', 'threshold.R'))
+#' @param TS Array consisting of L observations from N sensors.
+#' @param exact  If True, use the exact mean field approximation. If False, use the
+#'   naive mean field approximation.
+#' @param stop_criterion  If True, prevent overly-long runtimes. Only applies for exact mean
+#'   field.
+#' @param threshold_type Which thresholding function to use on the matrix of weights.
+#' @param ... Arguments
 #'
-#' #' @param TS Array consisting of L observations from N sensors.
-#' #' @param exact  If True, use the exact mean field approximation. If False, use the
-#' #' naive mean field approximation.
-#' #' @param stop_criterion  If True, prevent overly-long runtimes. Only applies for exact mean
-#' #' field.
-#' #' @param threshold_type Which thresholding function to use on the matrix of weights.
-#' #' @param ... Arguments
-#' #'
-#' #' @return strcuture
-#' #' @export
+#' @return strcuture
+#' @export
 #' mean_field_fit <- function(TS, exact=T, stop_criterion=T, threshold_type='range', ...){
 #'
 #'   N = nrow(TS)

@@ -3,10 +3,10 @@
 #' @param TS N * L matrix consisting of L observations from N sensors.
 #'
 #' @param remove_largest If False, all the eigenvectors associated to the
-#' significant eigenvalues will be used to reconstruct the
-#' de-noised empirical correlation matrix. If True, the
-#' eigenvector associated to the largest eigenvalue is going to be excluded from
-#' the recontruction step.
+#'   significant eigenvalues will be used to reconstruct the
+#'   de-noised empirical correlation matrix. If True, the
+#'   eigenvector associated to the largest eigenvalue is going to be excluded from
+#'   the recontruction step.
 #' @param metric_distance If False, a signed graph is obtained. If True, the correlation
 #' is transformed by defining a metric distance between each pair of nodes
 #' @param tol avoid minor difference between python and r in case of calculating eigen values
@@ -23,7 +23,7 @@ marchenko_pastur_fit <- function(TS, remove_largest = F, metric_distance = F, to
   }
 
   Q <- L / N
-  C <- cor(t(TS))
+  C <- stats::cor(t(TS))
   ev <- eigen(t(C))
   w <- ev$values
   v <- ev$vectors

@@ -51,8 +51,8 @@ convergent_cross_mapping_fit <- function(TS, tau = 1, threshold_type = "range", 
     j <- p[x, ][2]
     estimates <- time_series_estimates(data[, j], neighbors[[i]], nei_weights[[i]])
     M <- length(estimates)
-    correlation[i, j] <- cor.test(estimates, data[(L - M + 1):L, j], method = "pearson")[[4]][[1]]
-    pvalue[i, j] <- cor.test(estimates, data[(L - M + 1):L, j], method = "pearson")[[3]]
+    correlation[i, j] <- stats::cor.test(estimates, data[(L - M + 1):L, j], method = "pearson")[[4]][[1]]
+    pvalue[i, j] <- stats::cor.test(estimates, data[(L - M + 1):L, j], method = "pearson")[[3]]
   }
 
   # Build the reconstructed graph by finding significantly correlated

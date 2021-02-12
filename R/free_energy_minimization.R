@@ -1,7 +1,5 @@
-
 #' Reconstruction of graphs by minimizing a free energy of your data
-
-
+#'
 #' @param TS  Matrix consisting of L observations from N sensors.
 #'
 #' @param threshold_type Which thresholding function to use on the matrix of weights.
@@ -9,14 +7,6 @@
 #'
 #' @export
 free_energy_minimization_fit <- function(TS, threshold_type = "degree", ...) {
-  # Infer inter-node coupling weights by minimizing a free energy over the
-  # data structure.
-
-  # Returns
-  # -------
-  #
-  # G
-  #     a reconstructed graph.
   N <- nrow(TS)
   L <- ncol(TS)
   m <- TS[, -L]
@@ -27,7 +17,7 @@ free_energy_minimization_fit <- function(TS, threshold_type = "degree", ...) {
   t1 <- L - 1 # time limit
 
   # covariance of the discrepeancy
-  c <- cov.wt(ds, method = "ML")$cov
+  c <- stats::cov.wt(ds, method = "ML")$cov
   c_inv <- solve(c)
   dst <- t(ds) # discrepancy at time t
   W <- matrix(1, N, N)

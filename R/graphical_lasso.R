@@ -1,6 +1,5 @@
-
 #' Graph reconstruction algorithm.
-
+#'
 #' @param TS Matrix consisting of L observations from N sensors.
 #'
 #' @param alpha Coefficient of penalization, higher values means more sparseness
@@ -11,15 +10,7 @@
 #'
 #' @export
 graphical_lasso_fit <- function(TS, alpha = 0.01, max_iter = 100, tol = 0.0001, threshold_type = "degree", ...) {
-  # Performs a graphical lasso.
-
-  # Returns
-  # -------
-  #
-  # G
-  #     A reconstructed graph with :`N` nodes.
-
-  emp_cov <- cov(t(TS))
+  emp_cov <- stats::cov(t(TS))
   prec <- glasso::glasso(emp_cov, alpha, maxit = max_iter, thr = tol)$wi
   cov <- glasso::glasso(emp_cov, alpha, maxit = max_iter, thr = tol)$w
 

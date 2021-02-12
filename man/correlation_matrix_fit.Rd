@@ -15,7 +15,7 @@ be less than N.}
 
 \item{threshold_type}{Which thresholding function to use on the matrix of weights.}
 
-\item{...}{ARGUMENTS}
+\item{...}{Arguments}
 }
 \description{
 Reconstruction of graphs using the correlation matrix.

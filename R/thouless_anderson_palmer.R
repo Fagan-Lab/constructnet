@@ -1,4 +1,3 @@
-
 #' Infer inter-node coupling weights using a Thouless-Anderson-Palmer mean
 #' field approximation.
 #'
@@ -10,14 +9,13 @@
 #' @export
 thouless_anderson_palmer_fit <- function(TS, threshold_type = "range", ...) {
   N <- nrow(TS)
-  L <- ncol(TS)
   m <- rowMeans(TS)
 
   A <- 1 - m**2
   A_inv <- diag(1 / A)
   A <- diag(A)
   ds <- sweep(t(TS), 2, m, "-")
-  C <- cov.wt(ds, method = "ML")$cov
+  C <- stats::cov.wt(ds, method = "ML")$cov
   C_inv <- solve(C)
 
   s1 <- TS[, -1]

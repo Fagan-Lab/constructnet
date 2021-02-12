@@ -1,34 +1,16 @@
-
 #' Reconstruction of graphs using the correlation matrix.
-
+#'
 #' @param TS Matrix consisting of L observations from N sensors
 #'
 #' @param num_eigs The number of eigenvalues to use. (This corresponds to the
 #'                 amount of regularization.) The number of eigenvalues used must
 #'                 be less than N.
-#'
 #' @param threshold_type Which thresholding function to use on the matrix of weights.
-#'
-#' @param ... ARGUMENTS
+#' @param ... Arguments
 #'
 #' @export
 correlation_matrix_fit <- function(TS, num_eigs = NULL, threshold_type = "range", ...) {
-
-  # If ``num_eigs`` is `Null`, perform the reconstruction using the
-  # unregularized correlation matrix. Otherwise, construct a regularized
-  # precision matrix using ``num_eigs`` eigenvectors and eigenvalues of the
-  # correlation matrix.
-
-  # Returns
-  #-------
-  #  G
-  #   a reconstructed graph.
-  #  list()
-  #   structure
-
-
-  # get the correlation matrix
-  co <- cor(t(TS), method = "pearson")
+  co <- stats::cor(t(TS), method = "pearson")
 
   if (!is.null(num_eigs)) {
     N <- ncol(TS)
