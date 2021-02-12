@@ -10,22 +10,22 @@
 #' @param ... Arguments
 #'
 #' @export
-graphical_lasso_fit <- function(TS, alpha = 0.01, max_iter = 100, tol = 0.0001, threshold_type = 'degree', ...){
-        # Performs a graphical lasso.
+graphical_lasso_fit <- function(TS, alpha = 0.01, max_iter = 100, tol = 0.0001, threshold_type = "degree", ...) {
+  # Performs a graphical lasso.
 
-        # Returns
-        # -------
-        #
-        # G
-        #     A reconstructed graph with :`N` nodes.
+  # Returns
+  # -------
+  #
+  # G
+  #     A reconstructed graph with :`N` nodes.
 
-  emp_cov = cov(t(TS))
-  prec = glasso::glasso(emp_cov, alpha, maxit = max_iter, thr = tol)$wi
-  cov = glasso::glasso(emp_cov, alpha, maxit = max_iter, thr = tol)$w
+  emp_cov <- cov(t(TS))
+  prec <- glasso::glasso(emp_cov, alpha, maxit = max_iter, thr = tol)$wi
+  cov <- glasso::glasso(emp_cov, alpha, maxit = max_iter, thr = tol)$w
 
-  W_thresh = threshold(cov, threshold_type, ...)
+  W_thresh <- threshold(cov, threshold_type, ...)
 
-  G = create_graph(W_thresh)
+  G <- create_graph(W_thresh)
 
   structure(
     list(
@@ -37,4 +37,3 @@ graphical_lasso_fit <- function(TS, alpha = 0.01, max_iter = 100, tol = 0.0001, 
     class = "GraphicalLasso"
   )
 }
-

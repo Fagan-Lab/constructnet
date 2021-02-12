@@ -1,16 +1,18 @@
 #' Creates a minimum spanning tree connecting the sensors.
 #' @export
-#distance <-distances(inverse.sqrt)
+# distance <-distances(inverse.sqrt)
 #'
 #' @param inputArray inputArray
 #' @param distance distance
 #' @param ... ...
 #'
 #' @export
-construct_correlation_spanning <- function(inputArray, distance, ...) {UseMethod("construct_correlation_spanning")}
+construct_correlation_spanning <- function(inputArray, distance, ...) {
+  UseMethod("construct_correlation_spanning")
+}
 
 #' @export
-construct_correlation_spanning.igraph <-function(inputArray, distance, ...){
+construct_correlation_spanning.igraph <- function(inputArray, distance, ...) {
   # rowsinMatrix <- nrow(inputArray)
   # colsinMatrix <- ncol(inputArray)
   # correlation_matrix <- cor(inputArray, method = "pearson") #create correlation matrix
@@ -28,4 +30,3 @@ construct_correlation_spanning.igraph <-function(inputArray, distance, ...){
   #
   # G <- graph_from_adjacency_matrix(asAdjacency)#generate graph
 }
-

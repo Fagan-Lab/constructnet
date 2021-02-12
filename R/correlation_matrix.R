@@ -1,5 +1,5 @@
 
-#'Reconstruction of graphs using the correlation matrix.
+#' Reconstruction of graphs using the correlation matrix.
 
 #' @param TS Matrix consisting of L observations from N sensors
 #'
@@ -12,27 +12,27 @@
 #' @param ... ARGUMENTS
 #'
 #' @export
-correlation_matrix_fit <- function(TS, num_eigs=NULL, threshold_type='range', ...) {
+correlation_matrix_fit <- function(TS, num_eigs = NULL, threshold_type = "range", ...) {
 
-        #If ``num_eigs`` is `Null`, perform the reconstruction using the
-        #unregularized correlation matrix. Otherwise, construct a regularized
-        #precision matrix using ``num_eigs`` eigenvectors and eigenvalues of the
-        #correlation matrix.
+  # If ``num_eigs`` is `Null`, perform the reconstruction using the
+  # unregularized correlation matrix. Otherwise, construct a regularized
+  # precision matrix using ``num_eigs`` eigenvectors and eigenvalues of the
+  # correlation matrix.
 
-        #Returns
-        #-------
-        #  G
-        #   a reconstructed graph.
-        #  list()
-        #   structure
+  # Returns
+  #-------
+  #  G
+  #   a reconstructed graph.
+  #  list()
+  #   structure
 
 
   # get the correlation matrix
-  co = cor(t(TS), method="pearson")
+  co <- cor(t(TS), method = "pearson")
 
-  if (!is.null(num_eigs)){
+  if (!is.null(num_eigs)) {
     N <- ncol(TS)
-    if (num_eigs >  N) {
+    if (num_eigs > N) {
       stop("The number of eigenvalues used must be less than the number of sensors.")
     }
 
@@ -42,17 +42,17 @@ correlation_matrix_fit <- function(TS, num_eigs=NULL, threshold_type='range', ..
     vectors <- ev$vectors
 
     # construct the precision matrix and store it
-    P = (vectors[,c(1:num_eigs)]) %*%
-        (c (1 / matrix(values[1:num_eigs], ncol = 1, byrow = TRUE)) * t(vectors[,c(1:num_eigs)]))
-    P = P / (
-        matrix(sqrt(diag(P)), ncol = 1, byrow = TRUE) %*% matrix(sqrt(diag(P)), nrow = 1, byrow = TRUE)
+    P <- (vectors[, c(1:num_eigs)]) %*%
+      (c(1 / matrix(values[1:num_eigs], ncol = 1, byrow = TRUE)) * t(vectors[, c(1:num_eigs)]))
+    P <- P / (
+      matrix(sqrt(diag(P)), ncol = 1, byrow = TRUE) %*% matrix(sqrt(diag(P)), nrow = 1, byrow = TRUE)
     )
     mat <- P
   } else {
     mat <- co
   }
 
-  A = threshold(mat, threshold_type, ...)
+  A <- threshold(mat, threshold_type, ...)
 
   structure(
     list(
@@ -66,4 +66,3 @@ correlation_matrix_fit <- function(TS, num_eigs=NULL, threshold_type='range', ..
     class = "correlationMatrix"
   )
 }
-

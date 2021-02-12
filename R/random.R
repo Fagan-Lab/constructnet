@@ -6,14 +6,16 @@
 #' @param ... ...
 #'
 #' @export
-construct_random <- function(inputArray, inputThreshold,...) {UseMethod("construct_random")}
+construct_random <- function(inputArray, inputThreshold, ...) {
+  UseMethod("construct_random")
+}
 
 #' @export
-construct_random.igraph <- function(inputArray, inputThreshold,...){
+construct_random.igraph <- function(inputArray, inputThreshold, ...) {
   # rowsinMatrix <- nrow(inputArray)
   # colsinMatrix <- ncol(inputArray)
   # randomMatrices <-randn(rowsinMatrix, rowsinMatrix)
   # A<- threshold(randomMatrices,inputThreshold,...)
 }
 
-#G<-graph_from_literal(A, simplify=FALSE)#allow for nodes
+# G<-graph_from_literal(A, simplify=FALSE)#allow for nodes

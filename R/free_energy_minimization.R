@@ -8,65 +8,65 @@
 #' @param ... Arguments
 #'
 #' @export
-free_energy_minimization_fit <- function(TS, threshold_type='degree', ...){
-        # Infer inter-node coupling weights by minimizing a free energy over the
-        # data structure.
+free_energy_minimization_fit <- function(TS, threshold_type = "degree", ...) {
+  # Infer inter-node coupling weights by minimizing a free energy over the
+  # data structure.
 
-        # Returns
-        # -------
-        #
-        # G
-        #     a reconstructed graph.
-  N = nrow(TS)
-  L = ncol(TS)
+  # Returns
+  # -------
+  #
+  # G
+  #     a reconstructed graph.
+  N <- nrow(TS)
+  L <- ncol(TS)
   m <- TS[, -L]
   m <- rowMeans(m) # model average
   ds <- t(TS[, -L])
   ds <- apply(ds, 1, function(x) x - m)
-  ds <- t(ds)      # discrepancy
-  t1 = L -1        # time limit
+  ds <- t(ds) # discrepancy
+  t1 <- L - 1 # time limit
 
   # covariance of the discrepeancy
-  c = cov.wt(ds, method = 'ML')$cov
-  c_inv = solve(c)
-  dst = t(ds)       # discrepancy at time t
-  W = matrix(1, N, N)
-  nloop = 10000     # failsafe
+  c <- cov.wt(ds, method = "ML")$cov
+  c_inv <- solve(c)
+  dst <- t(ds) # discrepancy at time t
+  W <- matrix(1, N, N)
+  nloop <- 10000 # failsafe
 
-  for(i0 in 1:N){
-    TS1 = TS[i0, -1]
-    h = TS1
-    cost = matrix(100, 1, nloop)
-    for(iloop in 1:nloop){
-      h_av = mean(h)                        # average local field
-      hs_av = t(dst %*% (h - h_av) / t1)  # deltaE_i delta\sigma_k
-      w = (hs_av %*% c_inv)                 # expectation under model
-      h = as.vector(t(t(TS[, -L]) %*% w[,]))  # estimate of local field
-      TS_model = tanh(h)                     # under kinetic Ising model
+  for (i0 in 1:N) {
+    TS1 <- TS[i0, -1]
+    h <- TS1
+    cost <- matrix(100, 1, nloop)
+    for (iloop in 1:nloop) {
+      h_av <- mean(h) # average local field
+      hs_av <- t(dst %*% (h - h_av) / t1) # deltaE_i delta\sigma_k
+      w <- (hs_av %*% c_inv) # expectation under model
+      h <- as.vector(t(t(TS[, -L]) %*% w[, ])) # estimate of local field
+      TS_model <- tanh(h) # under kinetic Ising model
       # discrepancy cost
-      cost[iloop] = mean((TS1 - TS_model)**2 )
+      cost[iloop] <- mean((TS1 - TS_model)**2)
 
-      if(iloop != 1 && (cost[iloop] >= cost[iloop - 1])) {
+      if (iloop != 1 && (cost[iloop] >= cost[iloop - 1])) {
         break
       }
 
-      #The original Python code does not work
+      # The original Python code does not work
       #
       # h *= np.divide(
       #   TS1, TS_model, out=np.ones_like(TS1), where=TS_model != 0
       # )
       #
-      #It works when I delete "out=np.ones_like(TS1)"
-      h = h *  (TS1 / TS_model)
+      # It works when I delete "out=np.ones_like(TS1)"
+      h <- h * (TS1 / TS_model)
     }
-    W[i0, ] = w[,]
+    W[i0, ] <- w[, ]
   }
 
   # threshold the network
-  W_thresh = threshold(W, threshold_type, ...)
+  W_thresh <- threshold(W, threshold_type, ...)
 
 
-  G = create_graph(W_thresh)
+  G <- create_graph(W_thresh)
   # construct the network
   structure(
     list(
@@ -77,4 +77,3 @@ free_energy_minimization_fit <- function(TS, threshold_type='degree', ...){
     class = "FreeEnergyMinimization"
   )
 }
-

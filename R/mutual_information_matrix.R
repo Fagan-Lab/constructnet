@@ -16,18 +16,18 @@
 #' @return A reconstructed graph with :math:`N` nodes.
 #' @export
 
-mutual_information_matrix_fit <- function(TS, nbins = 10, threshold_type='degree', ...){
-  N = nrow(TS)
-  rang = c(min(TS), max(TS))
+mutual_information_matrix_fit <- function(TS, nbins = 10, threshold_type = "degree", ...) {
+  N <- nrow(TS)
+  rang <- c(min(TS), max(TS))
 
-  IndivP = find_individual_probability_distribution(TS, rang, nbins)
-  ProduP = find_product_probability_distribution(IndivP, N)
-  JointP = find_joint_probability_distribution(TS, rang, nbins)
+  IndivP <- find_individual_probability_distribution(TS, rang, nbins)
+  ProduP <- find_product_probability_distribution(IndivP, N)
+  JointP <- find_joint_probability_distribution(TS, rang, nbins)
 
-  I = mutual_info_all_pairs(JointP, ProduP, N)
+  I <- mutual_info_all_pairs(JointP, ProduP, N)
 
-  A = threshold(I, threshold_type,  ...)
-  G = create_graph(A)
+  A <- threshold(I, threshold_type, ...)
+  G <- create_graph(A)
   structure(
     list(
       weights_matrix = I,
@@ -39,84 +39,83 @@ mutual_information_matrix_fit <- function(TS, nbins = 10, threshold_type='degree
 }
 
 hist2d <- function(x,
-                   y=NULL,
-                   nbins=200,
+                   y = NULL,
+                   nbins = 200,
                    custom,
-                   same.scale=FALSE,
-                   na.rm=TRUE,
-                   show=TRUE,
-                   col=c("black", heat.colors(12)),
-                   FUN=base::length,
+                   same.scale = FALSE,
+                   na.rm = TRUE,
+                   show = TRUE,
+                   col = c("black", heat.colors(12)),
+                   FUN = base::length,
                    xlab,
                    ylab,
-                   ... )
-{
+                   ...) {
 
   # custom hist2d.
   # add designed nbins and change include of right to exclude.
-  if(is.null(y))
-  {
-    if(ncol(x) != 2) stop("If y is ommitted, x must be a 2 column matirx")
-    y <- x[,2]
-    x <- x[,1]
+  if (is.null(y)) {
+    if (ncol(x) != 2) stop("If y is ommitted, x must be a 2 column matirx")
+    y <- x[, 2]
+    x <- x[, 1]
   }
 
-  if(length(nbins)==1)
-    nbins <- rep(nbins,2)
+  if (length(nbins) == 1) {
+    nbins <- rep(nbins, 2)
+  }
 
   nas <- is.na(x) | is.na(y)
 
-  if(na.rm)
-  {
+  if (na.rm) {
     x <- x[!nas]
     y <- y[!nas]
   }
-  else
+  else {
     stop("missinig values not permitted if na.rm=FALSE")
-
-  if(same.scale)
-  {
-    x.cuts <- seq( from=min(x,y), to=max(x,y), length=nbins[1]+1)
-    y.cuts <- seq( from=min(x,y), to=max(x,y), length=nbins[2]+1)
   }
-  else
-  {
+
+  if (same.scale) {
+    x.cuts <- seq(from = min(x, y), to = max(x, y), length = nbins[1] + 1)
+    y.cuts <- seq(from = min(x, y), to = max(x, y), length = nbins[2] + 1)
+  }
+  else {
     x.cuts <- custom
     y.cuts <- custom
   }
 
-  index.x <- cut( x, x.cuts, right = F, include.lowest = T)
-  index.y <- cut( y, y.cuts, right = F, include.lowest = T)
+  index.x <- cut(x, x.cuts, right = F, include.lowest = T)
+  index.y <- cut(y, y.cuts, right = F, include.lowest = T)
 
   ## tapply is faster than old for() loop, and allows
   ## use of any user-specified summary function
-  m <- tapply(x,list(index.x,index.y),FUN)
+  m <- tapply(x, list(index.x, index.y), FUN)
 
   ## If we're using length, set empty cells to 0 instead of NA
-  if(identical(FUN,base::length))
+  if (identical(FUN, base::length)) {
     m[is.na(m)] <- 0
+  }
 
-  if(missing(xlab)) xlab <- deparse(substitute(xlab))
-  if(missing(ylab)) ylab <- deparse(substitute(ylab))
+  if (missing(xlab)) xlab <- deparse(substitute(xlab))
+  if (missing(ylab)) ylab <- deparse(substitute(ylab))
 
-  if(show)
-    image( x.cuts, y.cuts, m, col=col, xlab=xlab, ylab=ylab, ...)
+  if (show) {
+    image(x.cuts, y.cuts, m, col = col, xlab = xlab, ylab = ylab, ...)
+  }
 
-  midpoints <- function(x) (x[-1]+x[-length(x)])/2
+  midpoints <- function(x) (x[-1] + x[-length(x)]) / 2
 
   retval <- list()
   retval$counts <- m
-  retval$x.breaks = x.cuts
-  retval$y.breaks = y.cuts
-  retval$x = midpoints(x.cuts)
-  retval$y = midpoints(y.cuts)
-  retval$nobs = length(x)
+  retval$x.breaks <- x.cuts
+  retval$y.breaks <- y.cuts
+  retval$x <- midpoints(x.cuts)
+  retval$y <- midpoints(y.cuts)
+  retval$nobs <- length(x)
   retval$call <- match.call()
   class(retval) <- "hist2d"
   retval
 }
 
-find_individual_probability_distribution <- function(TS, rang, nbins){
+find_individual_probability_distribution <- function(TS, rang, nbins) {
   # Assign each node to a vector of length nbins where each element is the probability of the
   # node in the time series being in that binned "state"
   #
@@ -130,20 +129,20 @@ find_individual_probability_distribution <- function(TS, rang, nbins){
   # -------
   #   IndivP (dict): a dictionary where the keys are nodes in the graph and the values are vectors
   # of empirical probabilities of that node's time series being in that binned state.
-  N = nrow(TS)
-  L = ncol(TS)
+  N <- nrow(TS)
+  L <- ncol(TS)
   IndivP <- dict()
 
-  x <- seq( from=rang[1], to=rang[2], length=nbins + 1)
+  x <- seq(from = rang[1], to = rang[2], length = nbins + 1)
 
-  for (j in 1 : N) {
-    s <- hist(TS[j,],  breaks = x, right = F, include.lowest = T)$counts
-    IndivP[toString(j)] <- s/L
+  for (j in 1:N) {
+    s <- hist(TS[j, ], breaks = x, right = F, include.lowest = T)$counts
+    IndivP[toString(j)] <- s / L
   }
   IndivP
 }
 
-find_product_probability_distribution <- function(IndivP, N){
+find_product_probability_distribution <- function(IndivP, N) {
   # Assign each node j to a vector of length nbins where each element is the product of its own
   # individual_probability_distribution and its neighbors'. P(x) * P(y) <-- as opposed to P(x,y)
   #
@@ -157,19 +156,19 @@ find_product_probability_distribution <- function(IndivP, N){
   #   ProduP (dict): a dictionary where the keys are nodes in the graph and the values
   #                        are nbins x nbins arrays corresponding to products of two probability vectors
   #
-  ProduP = dict()
+  ProduP <- dict()
 
-  for(l in 1:N){
-    for(j in 1:l){
-      if(l != j ){
-        ProduP[toString(c(j,l))] = IndivP[j] %o% IndivP[l]
+  for (l in 1:N) {
+    for (j in 1:l) {
+      if (l != j) {
+        ProduP[toString(c(j, l))] <- IndivP[j] %o% IndivP[l]
       }
     }
   }
   ProduP
 }
 
-find_joint_probability_distribution <- function(TS, rang, nbins){
+find_joint_probability_distribution <- function(TS, rang, nbins) {
   # Assign each node j to a vector of length nbins where each element is the product of its own
   # individual_probability_distribution and its neighbors'. P(x) * P(y) <-- as opposed to P(x,y)
   #
@@ -183,18 +182,18 @@ find_joint_probability_distribution <- function(TS, rang, nbins){
   #   -------
   #   JointP (dict): a dictionary where the keys are nodes in the graph and the
   #                        are nbins x nbins arrays corresponding to joint probability vectors
-  N = nrow(TS)
-  L = ncol(TS)
-  JointP = dict()
+  N <- nrow(TS)
+  L <- ncol(TS)
+  JointP <- dict()
 
-  x <- seq( from=rang[1], to=rang[2], length=nbins + 1)
+  x <- seq(from = rang[1], to = rang[2], length = nbins + 1)
 
 
   for (l in 1:N) {
     for (j in 1:l) {
-      if(l != j){
-        s <- hist2d(TS[j,], TS[l,], nbins=nbins, custom = x)$counts
-        JointP[toString(c(j,l))] = s/L
+      if (l != j) {
+        s <- hist2d(TS[j, ], TS[l, ], nbins = nbins, custom = x)$counts
+        JointP[toString(c(j, l))] <- s / L
       }
     }
   }
@@ -216,52 +215,52 @@ mutual_info_node_pair <- function(JointP_jl, ProduP_jl) {
   # the (j,l)'th entry of the mutual information matrix
 
 
-  I_jl = 0
+  I_jl <- 0
 
-  z <- data.frame(x=as.vector(t(JointP_jl)), y=as.vector(t(ProduP_jl)))
+  z <- data.frame(x = as.vector(t(JointP_jl)), y = as.vector(t(ProduP_jl)))
 
-  for(i in 1:nrow(z)){
-    row <- z[i,]
-    if(row$x > 0 && row$y > 0){
-      I_jl =  I_jl + row$x * log(row$x / row$y)
+  for (i in 1:nrow(z)) {
+    row <- z[i, ]
+    if (row$x > 0 && row$y > 0) {
+      I_jl <- I_jl + row$x * log(row$x / row$y)
     }
   }
 
   I_jl
 }
 
-mutual_info_all_pairs <- function(JointP, ProduP, N){
-#   Calculate the mutual information between all pairs of nodes.
-#
-#   Parameters
-#   ----------
-#     JointP (dict): a dictionary where the keys are pairs of nodes in the graph and the values
-#                    are nbins x nbins arrays corresponding to joint probability vectors
-#     ProduP (dict): a dictionary where the keys are pairs of nodes in the graph and the values
-#                    are nbins x nbins arrays corresponding to products of two probability vectors
-#     N (int): list of the minimum and maximum value in the time series
-#
-#   Returns
-#   -------
-#     I : the NxN mutual information matrix from a time series
+mutual_info_all_pairs <- function(JointP, ProduP, N) {
+  #   Calculate the mutual information between all pairs of nodes.
+  #
+  #   Parameters
+  #   ----------
+  #     JointP (dict): a dictionary where the keys are pairs of nodes in the graph and the values
+  #                    are nbins x nbins arrays corresponding to joint probability vectors
+  #     ProduP (dict): a dictionary where the keys are pairs of nodes in the graph and the values
+  #                    are nbins x nbins arrays corresponding to products of two probability vectors
+  #     N (int): list of the minimum and maximum value in the time series
+  #
+  #   Returns
+  #   -------
+  #     I : the NxN mutual information matrix from a time series
 
-I = matrix(0, N, N)
+  I <- matrix(0, N, N)
 
-for (l in 1:N) {
-  for (j in 1:l) {
-    if(l != j){
-      JointP_jl = JointP[toString(c(j, l))]
-      ProduP_jl = ProduP[toString(c(j, l))]
+  for (l in 1:N) {
+    for (j in 1:l) {
+      if (l != j) {
+        JointP_jl <- JointP[toString(c(j, l))]
+        ProduP_jl <- ProduP[toString(c(j, l))]
 
-      I[j,l] = mutual_info_node_pair(JointP_jl, ProduP_jl)
-      I[l,j] = I[j,l]
+        I[j, l] <- mutual_info_node_pair(JointP_jl, ProduP_jl)
+        I[l, j] <- I[j, l]
+      }
     }
   }
-}
-I
+  I
 }
 
-threshold_from_degree <- function(deg, M){
+threshold_from_degree <- function(deg, M) {
 
   # Compute the required threshold (tau) in order to yield a reconstructed graph of mean degree deg.
   # Parameters
@@ -272,16 +271,16 @@ threshold_from_degree <- function(deg, M){
   # ------
   #   tau (float): Required threshold for A=np.array(I<tau,dtype=int) to have an average of deg ones per row/column
 
-N = nrow(M)
-A = matrix(1, N, N)
-for(tau in sort(as.vector(M))) {
-  idx = which(M == tau)
-  for(i in idx){
-    A[i] <- 0
+  N <- nrow(M)
+  A <- matrix(1, N, N)
+  for (tau in sort(as.vector(M))) {
+    idx <- which(M == tau)
+    for (i in idx) {
+      A[i] <- 0
+    }
+    if (mean(rowSums(A)) < deg) {
+      break
+    }
   }
-  if(mean(rowSums(A)) < deg){
-    break
-  }
-}
-return(tau)
+  return(tau)
 }

@@ -8,18 +8,18 @@
 #'                          graph object.
 #'
 #' @export
-create_graph <- function(A, mode = NULL, remove_self_loops=T) {
-    #Flexibly creating a networkx graph from a adjacency matrix
+create_graph <- function(A, mode = NULL, remove_self_loops = T) {
+  # Flexibly creating a networkx graph from a adjacency matrix
 
-    #Returns
-    #-------
-    #G
-    #   A graph
-  if(remove_self_loops) {
-    diag(A) = 0
+  # Returns
+  #-------
+  # G
+  #   A graph
+  if (remove_self_loops) {
+    diag(A) <- 0
   }
   if (is.null(mode)) {
-    if(suppressWarnings(all(A == t(A), tolerance = (1e-05 * abs(t(A)) + 1e-08)))){
+    if (suppressWarnings(all(A == t(A), tolerance = (1e-05 * abs(t(A)) + 1e-08)))) {
       G <- graph_from_adjacency_matrix(A, mode = "undirected")
       G <- simplify(G, remove.multiple = T, remove.loops = T)
     } else {
@@ -33,5 +33,3 @@ create_graph <- function(A, mode = NULL, remove_self_loops=T) {
 
   G
 }
-
-
