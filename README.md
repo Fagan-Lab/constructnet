@@ -3,6 +3,7 @@
 
 <!-- badges: start -->
 [![CircleCI build status](https://circleci.com/gh/Fagan-Lab/constructnet.svg?style=svg)](https://circleci.com/gh/Fagan-Lab/constructnet)
+[![R build status](https://github.com/travisbyrum/constructnet/workflows/R-CMD-check/badge.svg)](https://github.com/travisbyrum/constructnet/actions)
 <!-- badges: end -->
 
 constructnet: Network reconstruction from time series.
