@@ -1,4 +1,3 @@
-
 #' Graph reconstruction algorithm
 #' Calculates the transfer entropy from i --> j.
 #' The resulting network is asymmetric
@@ -14,14 +13,14 @@
 #' @export
 #'
 naive_transfer_entropy_fit <- function(TS, delay_max=1, n_bins=2, threshold_type='range', ...) {
-
+  
   N = nrow(TS)
   L = ncol(TS)
   data = t(TS)
   if(delay_max >= L) {
     stop("Max steps of delay exceeds time series length.")
   }
-
+  
   data = categorized_data(data, n_bins)
   TE = matrix(0, N, N)
   p <- gtools::permutations(N, 2, 1:N)
@@ -35,19 +34,19 @@ naive_transfer_entropy_fit <- function(TS, delay_max=1, n_bins=2, threshold_type
     TE[i, j] = mean(te_list)
     te_list = vector()
   }
-
-    TE_thresh = threshold(TE, threshold_type, ...)
-    G = create_graph(TE_thresh)
-
-    structure(
-      list(
-        weights_matrix = TE,
-        thresholded_matrix = TE_thresh,
-        graph = G
-      ),
-      class = "NaiveTransferEntropy"
-    )
-
+  
+  TE_thresh = threshold(TE, threshold_type, ...)
+  G = create_graph(TE_thresh)
+  
+  structure(
+    list(
+      weights_matrix = TE,
+      thresholded_matrix = TE_thresh,
+      graph = G
+    ),
+    class = "NaiveTransferEntropy"
+  )
+  
 }
 
 
@@ -57,7 +56,7 @@ transfer_entropy <- function(X, Y, delay){
   # in uncertainty for the dynamics of Y given the history of X. Or the
   # amount of information from X to Y. The calculation is done via conditional
   # mutual information.
-
+  
   # Parameters
   # ----------
   # X : time series of categorical values from node i
@@ -67,16 +66,16 @@ transfer_entropy <- function(X, Y, delay){
   # Returns
   # -------
   #   te (float): the transfer entropy from nodes i to j
-
+  
   xr = length(X)
   yr = length(Y)
   X_p = t(t(as.matrix(X)[-((xr - delay + 1):xr),]))
   Y_p = t(t(as.matrix(Y)[-((yr - delay + 1):yr),]))
   joint = cbind(Y_p, X_p)
-
+  
   Y_f = t(t(as.matrix(Y)[-(1:delay),]))
   te = conditional_entropy(Y_f, Y_p)
   te = te - conditional_entropy(Y_f, joint)
-
+  
   te
 }

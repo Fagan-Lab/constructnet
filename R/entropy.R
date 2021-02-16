@@ -2,31 +2,19 @@ joint_entropy <- function(data) {
   count <- Dict::dict()
   N <- nrow(data)
   L <- ncol(data)
-
+  
   c <- matrix(0, N, 1)
   if (L == 1) {
     data <- cbind(data, c)
-    data <- cbind(data, c)
   }
-
-  if(L == 2) {
-    data <- cbind(data, c)
-  }
-
+  
   for (i in 1:N) {
-<<<<<<< HEAD
-    count[toString(c(data[i, 1], data[i, 2]))] <- 0
-  }
-  for (i in 1:N) {
-    count[toString(c(data[i, 1], data[i, 2]))] <- count[toString(c(data[i, 1], data[i, 2]))] + 1
-=======
     count[toString(c(data[i, 1], data[i, 2], data[i, 3]))] = 0
   }
   for (i in 1:N) {
     count[toString(c(data[i, 1], data[i, 2], data[i, 3]))] = count[toString(c(data[i, 1], data[i, 2], data[i, 3]))] + 1
->>>>>>> f7c42ad1971a9f7a310bb57b82247c8c100addbc
   }
-
+  
   h <- unlist(count$values)
   DescTools::Entropy(h, base = 2)
 }
@@ -65,7 +53,7 @@ categorized_data <- function(raw, n_bins) {
       data[i, j] <- ramify::argmax(x)
     }
   }
-
+  
   data
 }
 
@@ -74,10 +62,10 @@ linear_bins <- function(raw, n_bins) {
   minm <- apply(raw, 2, min)
   maxm <- apply(raw, 2, max)
   bins <- vector()
-
+  
   for (i in 1:length(minm)) {
     bins <- append(bins, pracma::linspace(minm[i], maxm[i], n = n_bins + 1))
   }
-
+  
   matrix(bins, nrow = n_bins + 1, ncol = length(minm), byrow = F)
 }
