@@ -6,13 +6,25 @@ joint_entropy <- function(data) {
   c <- matrix(0, N, 1)
   if (L == 1) {
     data <- cbind(data, c)
+    data <- cbind(data, c)
+  }
+
+  if(L == 2) {
+    data <- cbind(data, c)
   }
 
   for (i in 1:N) {
+<<<<<<< HEAD
     count[toString(c(data[i, 1], data[i, 2]))] <- 0
   }
   for (i in 1:N) {
     count[toString(c(data[i, 1], data[i, 2]))] <- count[toString(c(data[i, 1], data[i, 2]))] + 1
+=======
+    count[toString(c(data[i, 1], data[i, 2], data[i, 3]))] = 0
+  }
+  for (i in 1:N) {
+    count[toString(c(data[i, 1], data[i, 2], data[i, 3]))] = count[toString(c(data[i, 1], data[i, 2], data[i, 3]))] + 1
+>>>>>>> f7c42ad1971a9f7a310bb57b82247c8c100addbc
   }
 
   h <- unlist(count$values)

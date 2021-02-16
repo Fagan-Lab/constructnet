@@ -13,7 +13,11 @@ create_graph <- function(A, mode = NULL, remove_self_loops = T) {
   }
 
   if (is.null(mode)) {
+<<<<<<< HEAD
     if (suppressWarnings(all(A == t(A), tolerance = (1e-05 * abs(t(A)) + 1e-08)))) {
+=======
+    if(suppressWarnings(all(A == t(A), tolerance = (1e-05 * abs(t(A)) + 1e-08)))){
+>>>>>>> f7c42ad1971a9f7a310bb57b82247c8c100addbc
       G <- igraph::graph_from_adjacency_matrix(A, mode = "undirected")
       G <- igraph::simplify(G, remove.multiple = T, remove.loops = T)
     } else {
