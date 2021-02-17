@@ -1,6 +1,6 @@
 #' Reconstruction of graphs by minimizing a free energy of your data
 #'
-#' @param TS  Matrix consisting of L observations from N sensors.
+#' @param TS  Matrix consisting of L observations from N different variables.
 #'
 #' @param threshold_type Which thresholding function to use on the matrix of weights.
 #' @param ... Arguments
