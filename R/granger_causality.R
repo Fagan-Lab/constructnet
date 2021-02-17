@@ -1,6 +1,6 @@
 #' Graph reconstruction algorithm
 #'
-#' @param TS Array consisting of L observations from N sensors.
+#' @param TS Array consisting of L observations from N variables.
 #'
 #' @param lag Time lag to consider.
 #' @param threshold_type Which thresholding function to use on the matrix of weights.
