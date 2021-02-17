@@ -1,6 +1,6 @@
 #' Graph reconstruction algorithm.
 #'
-#' @param TS N * L matrix consisting of L observations from N sensors.
+#' @param TS N * L matrix consisting of L observations from N variables.
 #'
 #' @param remove_largest If False, all the eigenvectors associated to the
 #'   significant eigenvalues will be used to reconstruct the
