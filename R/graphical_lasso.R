@@ -1,6 +1,6 @@
 #' Graph reconstruction algorithm.
 #'
-#' @param TS Matrix consisting of L observations from N sensors.
+#' @param TS Matrix consisting of L observations from N variables.
 #'
 #' @param alpha Coefficient of penalization, higher values means more sparseness
 #' @param max_iter Maximum number of iterations.
