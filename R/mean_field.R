@@ -1,6 +1,6 @@
 #' Reconstruction of graphs using the exact mean field
 #'
-#' @param TS Array consisting of L observations from N sensors.
+#' @param TS Array consisting of L observations from N variables.
 #' @param exact  If True, use the exact mean field approximation. If False, use the
 #'   naive mean field approximation.
 #' @param stop_criterion  If True, prevent overly-long runtimes. Only applies for exact mean
