@@ -14,7 +14,6 @@
 #'
 #' @return A reconstructed graph with :math:`N` nodes.
 #' @export
-
 mutual_information_matrix_fit <- function(TS, nbins = 10, threshold_type = "degree", ...) {
   N <- nrow(TS)
   rang <- c(min(TS), max(TS))

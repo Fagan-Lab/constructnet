@@ -7,7 +7,7 @@
 free_energy_minimization_fit(TS, threshold_type = "degree", ...)
 }
 \arguments{
-\item{TS}{Matrix consisting of L observations from N sensors.}
+\item{TS}{Matrix consisting of L observations from N different variables.}
 
 \item{threshold_type}{Which thresholding function to use on the matrix of weights.}
 

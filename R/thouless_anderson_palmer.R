@@ -66,9 +66,6 @@ thouless_anderson_palmer_fit <- function(TS, threshold_type = "range", ...) {
 }
 
 cross_cov <- function(a, b) {
-  # cross_covariance
-  # a,b -->  <(a - <a>)(b - <b>)>  (axis=0)
-
   da <- sweep(a, 2, colMeans(a), "-")
   db <- sweep(b, 2, colMeans(b), "-")
   r <- (t(da) %*% db) / nrow(a)

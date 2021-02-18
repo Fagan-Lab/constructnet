@@ -11,7 +11,7 @@ granger_causality_fit <- function(TS, lag = 1, threshold_type = "range", ...) {
   n <- nrow(TS)
   W <- matrix(0, n, n)
 
-  for (i in 1:n) {
+  for (i in seq_len(n)) {
     xi <- split_data(TS[i, ], lag)$inputs
     yi <- split_data(TS[i, ], lag)$targets
 
@@ -51,7 +51,6 @@ granger_causality_fit <- function(TS, lag = 1, threshold_type = "range", ...) {
     class = "GrangerCausality"
   )
 }
-
 
 split_data <- function(TS, lag) {
   T <- length(TS)

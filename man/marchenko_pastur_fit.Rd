@@ -14,7 +14,7 @@ marchenko_pastur_fit(
 )
 }
 \arguments{
-\item{TS}{N * L matrix consisting of L observations from N sensors.}
+\item{TS}{N * L matrix consisting of L observations from N variables.}
 
 \item{remove_largest}{If False, all the eigenvectors associated to the
 significant eigenvalues will be used to reconstruct the

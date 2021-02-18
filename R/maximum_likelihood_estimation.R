@@ -16,7 +16,7 @@ maximum_likelihood_estimation_fit <- function(TS, rate = 1.0, stop_criterion = T
   s1 <- TS[, -L]
 
   nloop <- 10000
-  for (i0 in 1:N) {
+  for (i0 in seq_len(N)) {
     st1 <- matrix((TS[i0, -1]), nrow = 1)
     w <- matrix(0, 1, N)
     h <- matrix(0, 1, (L - 1))

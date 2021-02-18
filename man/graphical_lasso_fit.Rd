@@ -14,7 +14,7 @@ graphical_lasso_fit(
 )
 }
 \arguments{
-\item{TS}{Matrix consisting of L observations from N sensors.}
+\item{TS}{Matrix consisting of L observations from N variables.}
 
 \item{alpha}{Coefficient of penalization, higher values means more sparseness}
 

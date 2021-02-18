@@ -1,6 +1,6 @@
 #' Reconstruction of graphs by minimizing a free energy of your data
 #'
-#' @param TS  Matrix consisting of L observations from N different variables.
+#' @param TS Matrix consisting of L observations from N different variables.
 #'
 #' @param threshold_type Which thresholding function to use on the matrix of weights.
 #' @param ... Arguments
@@ -9,8 +9,7 @@
 free_energy_minimization_fit <- function(TS, threshold_type = "degree", ...) {
   N <- nrow(TS)
   L <- ncol(TS)
-  m <- TS[, -L]
-  m <- rowMeans(m) # model average
+  m <- rowMeans(TS[, -L]) # model average
   ds <- t(TS[, -L])
   ds <- apply(ds, 1, function(x) x - m)
   ds <- t(ds) # discrepancy
@@ -27,7 +26,8 @@ free_energy_minimization_fit <- function(TS, threshold_type = "degree", ...) {
     TS1 <- TS[i0, -1]
     h <- TS1
     cost <- matrix(100, 1, nloop)
-    for (iloop in 1:nloop) {
+
+    for (iloop in seq_len(nloop)) {
       h_av <- mean(h) # average local field
       hs_av <- t(dst %*% (h - h_av) / t1) # deltaE_i delta\sigma_k
       w <- (hs_av %*% c_inv) # expectation under model
@@ -40,21 +40,14 @@ free_energy_minimization_fit <- function(TS, threshold_type = "degree", ...) {
         break
       }
 
-      # The original Python code does not work
-      #
-      # h *= np.divide(
-      #   TS1, TS_model, out=np.ones_like(TS1), where=TS_model != 0
-      # )
-      #
-      # It works when I delete "out=np.ones_like(TS1)"
       h <- h * (TS1 / TS_model)
     }
+
     W[i0, ] <- w[, ]
   }
 
   # threshold the network
   W_thresh <- threshold(W, threshold_type, ...)
-
 
   G <- create_graph(W_thresh)
   # construct the network

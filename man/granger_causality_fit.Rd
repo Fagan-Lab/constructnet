@@ -7,7 +7,7 @@
 granger_causality_fit(TS, lag = 1, threshold_type = "range", ...)
 }
 \arguments{
-\item{TS}{Array consisting of L observations from N sensors.}
+\item{TS}{Array consisting of L observations from N variables.}
 
 \item{lag}{Time lag to consider.}
 
