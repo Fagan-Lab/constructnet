@@ -13,7 +13,7 @@ Authors@R: c(
            role = c("aut"))
     )
 Description: Collection of methods for network reconstruction from time series data.
-    Use with other graph methods.
+    Use with other graph methods. Install using devtools::install_github.
 License: MIT + file LICENSE
 Depends:
     R (>= 3.2.0)
