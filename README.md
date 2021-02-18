@@ -9,10 +9,10 @@ constructnet: Network reconstruction from time series.
 
 ## Installation
 
-You can install the released version of constructnet from [CRAN](https://CRAN.R-project.org) with:
+You can install the current version of the package from GitHub directly using (through the devtools package):
 
 ``` r
-install.packages("constructnet")
+install_github("Fagan-Lab/constructnet")
 ```
 
 ## Development
