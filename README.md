@@ -1,18 +1,19 @@
-
 # constructnet
 
 <!-- badges: start -->
-[![CircleCI build status](https://circleci.com/gh/Fagan-Lab/constructnet.svg?style=svg)](https://circleci.com/gh/Fagan-Lab/constructnet)
+
+[![R build status](https://github.com/travisbyrum/constructnet/workflows/R-CMD-check/badge.svg)](https://github.com/travisbyrum/constructnet/actions)
+
 <!-- badges: end -->
 
 constructnet: Network reconstruction from time series.
 
 ## Installation
 
-You can install the released version of constructnet from [CRAN](https://CRAN.R-project.org) with:
+You can install the current version of the package from GitHub directly using (through the devtools package):
 
-``` r
-install.packages("constructnet")
+```r
+devtools::install_github("Fagan-Lab/constructnet")
 ```
 
 ## Development
@@ -21,7 +22,7 @@ install.packages("constructnet")
 
 To document the package use:
 
-``` r
+```r
 devtools::document()
 ```
 
@@ -31,7 +32,7 @@ This will add any new function `.Rd` files and update existing functions.
 
 To check that the package installs correctly and all tests are passing, use:
 
-``` r
+```r
 devtools::check(document = FALSE)
 ```
 
@@ -41,7 +42,7 @@ Alternatively, you can use the check button on the `Build` tab in Rstudio.
 
 To add a package dependency use:
 
-``` r
+```r
 usethis::use_package("package")
 ```
 
@@ -49,9 +50,9 @@ This will correctly update the `DESCRIPTION` with the new dependency.
 
 ### Adding a test
 
-To add a test for a given function, add a corresponding test file in the `tests/testthat` directory.  To run all the tests in the package, use:
+To add a test for a given function, add a corresponding test file in the `tests/testthat` directory. To run all the tests in the package, use:
 
-``` r
+```r
 devtools::test()
 ```
 
@@ -61,7 +62,7 @@ This is also available as the `CMD + SHIFT + t` command in Rstudio.
 
 To install package locally for development use:
 
-``` r
+```r
 devtools::load_all(".")
 ```
 
