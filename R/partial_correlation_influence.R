@@ -9,7 +9,7 @@
 #'
 #' @return A reconstructed graph with N nodes
 #' @export
-partial_correlation_influence <- function(TS, index=None, threshold_type='range', ...) {
+partial_correlation_influence <- function(TS, index=NULL, threshold_type='range', ...) {
   data <- t(TS)
   N = nrow(data)
 
